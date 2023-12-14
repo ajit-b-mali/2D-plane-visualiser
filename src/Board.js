@@ -15,11 +15,11 @@ export default class Board {
         };
         this.unitAxis = {
             len: 2,
-            color: util.color.teal2,
+            color: util.color.Up,
         };
         this.subaxis = {
             len: 1,
-            color: util.color.teal,
+            color: util.color.Ut,
         };
         this.subiterate = 10;
     }
@@ -28,24 +28,24 @@ export default class Board {
         this.iterate = Math.max(this.canvas.height, this.canvas.width) / UNITSIZE + 1;
         this.fromTop = -offset.y - (-offset.y % UNITSIZE);
         this.fromLeft = -offset.x - (-offset.x % UNITSIZE);
-        if (UNITSIZE < 40) {
+        if (UNITSIZE < 60) {
             this.subiterate = 1;
-            this.unitAxis.len = 1;
-            this.unitAxis.color = util.color.teal3;
+            this.unitAxis.len = 2;
+            this.unitAxis.color = util.color.Uf;
         } else if (UNITSIZE < 130) {
             this.subiterate = 2;
-            this.mainAxis.len = 2;
-            this.unitAxis.len = 1.5;
-            this.subaxis.len = 0.75;
-            this.unitAxis.color = util.color.teal2;
-            this.subaxis.color = util.color.teal3;
+            this.mainAxis.len = 3;
+            this.unitAxis.len = 2;
+            this.subaxis.len = 2;
+            this.unitAxis.color = util.color.Us;
+            this.subaxis.color = util.color.Ut;
         } else {
             this.subiterate = 10;
             this.mainAxis.len = 3;
-            this.unitAxis.len = 1.5;
+            this.unitAxis.len = 2;
             this.subaxis.len = 2;
-            this.unitAxis.color = util.color.aqua;
-            this.subaxis.color = util.color.teal;
+            this.unitAxis.color = util.color.Up;
+            this.subaxis.color = util.color.Uth;
         }
     }
 
@@ -60,7 +60,7 @@ export default class Board {
             this.ctx.lineWidth = this.subaxis.len;
             for (let j = 1; j < divisions; j++) {
                 if (j == 5) {
-                    this.ctx.strokeStyle = util.color.teal3;
+                    this.ctx.strokeStyle = util.color.Ut;
                     this.ctx.lineWidth = 3;
                 } else {
                     this.ctx.strokeStyle = this.subaxis.color;
@@ -78,7 +78,7 @@ export default class Board {
             this.ctx.lineWidth = this.subaxis.len;
             for (let j = 1; j < divisions; j++) {
                 if (j == 5) {
-                    this.ctx.strokeStyle = util.color.teal3;
+                    this.ctx.strokeStyle = util.color.Ut;
                     this.ctx.lineWidth = 3;
                 } else {
                     this.ctx.strokeStyle = this.subaxis.color;

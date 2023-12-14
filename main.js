@@ -23,7 +23,7 @@ const cursor = new Cursor(canvas);
 function Unit(v) {
     return {
         default: v,
-        mini: 25,
+        mini: 35,
         maxi: 250,
         size: v,
         setSize(v) {
@@ -40,18 +40,19 @@ let SNAP = inputSnapSize.value;
 
 // Default Functions--------------------------------
 function update(dt) {
+    console.log(unit.size);
     Util.reset(ctx, offset);
     board.update(offset, unit.size);
     cursor.update(dt);
 }
 
 function draw() {
+    board.draw(offset, unit.size);
+    cursor.draw(unit.size);
     ctx.fillStyle = 'silver'
     ctx.fillRect(unit.size, 3.5 * unit.size, 1.5 * unit.size, -2.5 * unit.size);
     ctx.fillStyle = 'white'
     ctx.fillRect(unit.size * 1.25, 3.25 * unit.size, unit.size, -2 * unit.size);
-    board.draw(offset, unit.size);
-    cursor.draw(unit.size);
 }
 
 function clear() {
