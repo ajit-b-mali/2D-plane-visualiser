@@ -7,6 +7,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Main Screen -------------------------------------------------------- -->
+    <div class="container" >
+        <canvas id="board"></canvas>
+    </div>
+
+    <!-- Properties tab ----------------------------------------------------- -->
+    <div class="properties">
+        <!-- Board Properties ----------------------------------------------- -->
+        <div class="board">
+
+            <!-- Grid Snap Size -->
+            <div class="snapSize">
+                <label for="snapSize">Select the snap </label>
+                <select name="snapSize" id="snapSize">
+                    <option value="0">none</option>
+                    <option value="0.10">0.10</option>
+                    <option value="0.20">0.20</option>
+                    <option value="0.25">0.25</option>
+                    <option value="0.50" selected>0.50</option>
+                    <option value="1.00">1.00</option>
+                </select>
+            </div>
+        </div>
+    </div>
     
     <script type="module" src="main.js"></script>
 </body>
