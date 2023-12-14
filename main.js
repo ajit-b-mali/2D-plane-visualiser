@@ -48,10 +48,6 @@ function update(dt) {
 function draw() {
     board.draw(offset, unit.size);
     cursor.draw(unit.size);
-    ctx.fillStyle = 'silver'
-    ctx.fillRect(unit.size, 3.5 * unit.size, 1.5 * unit.size, -2.5 * unit.size);
-    ctx.fillStyle = 'white'
-    ctx.fillRect(unit.size * 1.25, 3.25 * unit.size, unit.size, -2 * unit.size);
 }
 
 function clear() {
@@ -74,7 +70,6 @@ requestAnimationFrame(mainLoop);
 
 // Events--------------------------------------------
 let canMove = false;
-
 
 canvas.addEventListener('mousedown', e => {
     if (e.button == 1) {
@@ -134,7 +129,7 @@ window.addEventListener('keydown', e => {
         offset.set(canvas.width / 2, canvas.height / 2)
     }
     if (e.code == 'KeyC' && e.ctrlKey) {
-        unit.setSize(unit.init);
+        unit.setSize(unit.default);
     }
 }, { passive: false });
 

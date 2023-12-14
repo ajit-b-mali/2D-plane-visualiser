@@ -24,17 +24,17 @@ export default class Board {
         this.subiterate = 10;
     }
 
-    update(offset, UNITSIZE) {
+    update({x, y}, UNITSIZE) {
         this.iterate = Math.max(this.canvas.height, this.canvas.width) / UNITSIZE + 1;
-        this.fromTop = -offset.y - (-offset.y % UNITSIZE);
-        this.fromLeft = -offset.x - (-offset.x % UNITSIZE);
+        this.fromTop = -y - (-y % UNITSIZE);
+        this.fromLeft = -x - (-x % UNITSIZE);
         if (UNITSIZE < 60) {
             this.subiterate = 1;
             this.unitAxis.len = 2;
             this.unitAxis.color = util.color.Uf;
         } else if (UNITSIZE < 130) {
             this.subiterate = 2;
-            this.mainAxis.len = 3;
+            this.mainAxis.len = 2;
             this.unitAxis.len = 2;
             this.subaxis.len = 2;
             this.unitAxis.color = util.color.Us;
@@ -49,7 +49,7 @@ export default class Board {
         }
     }
 
-    draw(offset, UNITSIZE) {
+    draw({x, y}, UNITSIZE) {
         let iterate = this.iterate;
         let divisions = this.subiterate;
 
@@ -66,7 +66,7 @@ export default class Board {
                     this.ctx.strokeStyle = this.subaxis.color;
                     this.ctx.lineWidth = this.subaxis.len;
                 }
-                util.drawLine(this.ctx, -offset.x, (from + j * UNITSIZE / divisions) + i * UNITSIZE, -offset.x + this.canvas.width, (from + j * UNITSIZE / divisions) + i * UNITSIZE);
+                util.drawLine(this.ctx, -x, (from + j * UNITSIZE / divisions) + i * UNITSIZE, -x + this.canvas.width, (from + j * UNITSIZE / divisions) + i * UNITSIZE);
             }
         }
 
@@ -84,12 +84,12 @@ export default class Board {
                     this.ctx.strokeStyle = this.subaxis.color;
                     this.ctx.lineWidth = this.subaxis.len;
                 }
-                util.drawLine(this.ctx, (from + j * UNITSIZE / divisions) + i * UNITSIZE, -offset.y, (from + j * UNITSIZE / divisions) + i * UNITSIZE, -offset.y + this.canvas.height)
+                util.drawLine(this.ctx, (from + j * UNITSIZE / divisions) + i * UNITSIZE, -y, (from + j * UNITSIZE / divisions) + i * UNITSIZE, -y + this.canvas.height)
             }
             // Unit Axis Parallel to Y-Axis
             this.ctx.strokeStyle = this.unitAxis.color;
             this.ctx.lineWidth = this.unitAxis.len;
-            util.drawLine(this.ctx, from + i * UNITSIZE, -offset.y, from + i * UNITSIZE, -offset.y + this.canvas.height)
+            util.drawLine(this.ctx, from + i * UNITSIZE, -y, from + i * UNITSIZE, -y + this.canvas.height)
         }
 
         // Unit Axis Parallel to X-Axis
@@ -97,7 +97,7 @@ export default class Board {
         for (let i = -1; i < iterate; i++) {
             this.ctx.strokeStyle = this.unitAxis.color;
             this.ctx.lineWidth = this.unitAxis.len;
-            util.drawLine(this.ctx, -offset.x, from + i * UNITSIZE, -offset.x + this.canvas.width, from + i * UNITSIZE);
+            util.drawLine(this.ctx, -x, from + i * UNITSIZE, -x + this.canvas.width, from + i * UNITSIZE);
         }
 
         // Main Axis
@@ -105,10 +105,10 @@ export default class Board {
 
         // X-Axis
         this.ctx.strokeStyle = this.mainAxis.xColor;
-        util.drawLine(this.ctx, -offset.x, 0, -offset.x + this.canvas.width, 0);
+        util.drawLine(this.ctx, -x, 0, -x + this.canvas.width, 0);
         
         // Y-Axis
         this.ctx.strokeStyle = this.mainAxis.yColor;
-        util.drawLine(this.ctx, 0, -offset.y, 0, -offset.y + this.canvas.height);
+        util.drawLine(this.ctx, 0, -y, 0, -y + this.canvas.height);
     }
 }
