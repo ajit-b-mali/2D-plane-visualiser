@@ -40,7 +40,6 @@ let SNAP = inputSnapSize.value;
 
 // Default Functions--------------------------------
 function update(dt) {
-    console.log(unit.size);
     Util.reset(ctx, offset);
     board.update(offset, unit.size);
     cursor.update(dt);
