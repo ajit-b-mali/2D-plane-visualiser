@@ -1,11 +1,13 @@
 export default class Point {
-    constructor(ctx, x, y, unitsize) {
+    constructor(ctx, x, y) {
         this.ctx = ctx;
-        this.set(x, y, unitsize);
-        this.r = 5;
+        this.setPos(x, y);
+        this.r = 3;
+        this.angle = 0;
     }
 
     update(dt, unitsize) {
+        // this.r = Math.max(unitsize / 50, 3)
         this.fakeX = this.x * unitsize;
         this.fakeY = this.y * unitsize;
     }
@@ -13,17 +15,17 @@ export default class Point {
     draw() {
         this.ctx.fillStyle = 'white';
         this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        this.ctx.arc(this.fakeX, this.fakeY, this.r, 0, Math.PI * 2);
         this.ctx.closePath();
         this.ctx.fill();
     }
 
-    set(x,  y) {
+    setPos(x,  y) {
         this.x = x;
         this.y = y;
     }
 
-    update(x, y) {
+    updatePos(x, y) {
         this.x += x;
         this.y += y;
     }

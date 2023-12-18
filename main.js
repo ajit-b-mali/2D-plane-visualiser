@@ -6,6 +6,7 @@ import Board from "./src/Board.js";
 import * as Util from "./src/Util.js";
 import Offset from "./src/Offset.js";
 import Cursor from "./src/Cursor.js";
+import Point from "./src/shapes/Point.js";
 
 // References-------------------------------------
 const canvas = document.getElementById('board');
@@ -35,18 +36,29 @@ function Unit(v) {
     }
 }
 
-const unit = Unit(100);
+const unit = Unit(250);
 let SNAP = inputSnapSize.value;
+
+let points = [];
 
 // Default Functions--------------------------------
 function update(dt) {
+    console.log(points);
     Util.reset(ctx, offset);
     board.update(offset, unit.size);
+    points.forEach(point => {
+        point.update(dt, unit.size);
+    });
     cursor.update(dt);
 }
 
 function draw() {
     board.draw(offset, unit.size);
+
+    points.forEach(point => {
+        point.draw()
+    });
+
     cursor.draw(unit.size);
 }
 
@@ -74,6 +86,12 @@ let canMove = false;
 canvas.addEventListener('mousedown', e => {
     if (e.button == 1) {
         canMove = true;
+    }
+    if (e.button == 0) {
+        let x = e.offsetX - offset.x;
+        let y = e.offsetY - offset.y;
+        [x, y] = Util.snapXY(x, y, unit.size, SNAP);
+        points.push(new Point(ctx, x, y));
     }
 });
 
