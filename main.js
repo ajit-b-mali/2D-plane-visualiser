@@ -8,6 +8,7 @@ import Offset from "./src/Offset.js";
 import Cursor from "./src/Cursor.js";
 import Point from "./src/shapes/Point.js";
 import Circle from "./src/shapes/Circle.js";
+import Square from "./src/shapes/Square.js";
 
 // References-------------------------------------
 const canvas = document.getElementById('board');
@@ -42,6 +43,7 @@ let SNAP = inputSnapSize.value;
 
 let points = [];
 let circles = [];
+let squares = [];
 
 // Default Functions--------------------------------
 function update(dt) {
@@ -50,19 +52,26 @@ function update(dt) {
     points.forEach(point => {
         point.update(dt, unit.size);
     });
-    circles.forEach(point => {
-        point.update(dt, unit.size);
+    circles.forEach(circle => {
+        circle.update(dt, unit.size);
+    });
+    squares.forEach(square => {
+        square.update(dt, unit.size);
     });
     cursor.update(dt);
 }
 
 function draw() {
     board.draw(offset, unit.size);
-
-    circles.forEach(point => {
-        point.draw()
+    points.forEach(point => {
+        point.update(dt, unit.size);
     });
-
+    circles.forEach(circle => {
+        circle.draw()
+    });
+    squares.forEach(square => {
+        square.draw();
+    });
     cursor.draw(unit.size);
 }
 
@@ -96,8 +105,8 @@ canvas.addEventListener('mousedown', e => {
         let x = e.offsetX - offset.x;
         let y = e.offsetY - offset.y;
         [x, y] = Util.snapXY(x, y, unit.size, SNAP);
-        selected = new Circle(ctx, x, y)
-        circles.push(selected);
+        selected = new Square(ctx, x, y)
+        squares.push(selected);
         clicked = true;
     }
 });
@@ -111,7 +120,7 @@ canvas.addEventListener('mousemove', e => {
     [x, y] = Util.snapXY(x, y, unit.size, SNAP);
     cursor.setPos(x, y);
     if (clicked && (selected.x != x || selected.y != y)) {
-        selected.setRadius(Math.max(Math.abs(selected.x - x), Math.abs(selected.y - y)));
+        selected.setSize(Math.max(Math.abs(selected.x - x), Math.abs(selected.y - y)));
     }
 });
 
