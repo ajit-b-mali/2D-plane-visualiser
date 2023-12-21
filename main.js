@@ -105,7 +105,7 @@ canvas.addEventListener('mousedown', e => {
         let x = e.offsetX - offset.x;
         let y = e.offsetY - offset.y;
         [x, y] = Util.snapXY(x, y, unit.size, SNAP);
-        selected = new Square(ctx, x, y)
+        selected = new Circle(ctx, x, y)
         squares.push(selected);
         clicked = true;
     }
@@ -119,8 +119,8 @@ canvas.addEventListener('mousemove', e => {
     let y = e.offsetY - offset.y;
     [x, y] = Util.snapXY(x, y, unit.size, SNAP);
     cursor.setPos(x, y);
-    if (clicked && (selected.x != x || selected.y != y)) {
-        selected.setSize(Math.max(Math.abs(selected.x - x), Math.abs(selected.y - y)));
+    if (clicked && (selected.center.x != x || selected.center.y != y)) {
+        selected.setRadius(Util.findDist(selected.center.x, selected.center.y, x, y));
     }
 });
 

@@ -61,4 +61,8 @@ function ellipsePath(ctx, x, y, rx, ry, rt, type) {
     else ctx.stroke()
 }
 
-export { drawLine, color, clamp, reset, snapXY, rtoa, ellipsePath };
+function findDist(ax, ay, bx, by) {
+    return Math.sqrt((ax - bx) ** 2 + (ay - by) ** 2);
+}
+
+export { drawLine, color, clamp, reset, snapXY, rtoa, ellipsePath, findDist };

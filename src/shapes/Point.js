@@ -2,6 +2,8 @@ export default class Point {
     constructor(ctx, x, y) {
         this.ctx = ctx;
         this.setPos(x, y);
+        this.fakeX;
+        this.fakeY;
         this.r = 3;
     }
 
