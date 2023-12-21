@@ -3,11 +3,9 @@ export default class Point {
         this.ctx = ctx;
         this.setPos(x, y);
         this.r = 3;
-        this.angle = 0;
     }
 
     update(dt, unitsize) {
-        // this.r = Math.max(unitsize / 50, 3)
         this.fakeX = this.x * unitsize;
         this.fakeY = this.y * unitsize;
     }

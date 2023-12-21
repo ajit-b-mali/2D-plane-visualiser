@@ -7,6 +7,7 @@ import * as Util from "./src/Util.js";
 import Offset from "./src/Offset.js";
 import Cursor from "./src/Cursor.js";
 import Point from "./src/shapes/Point.js";
+import Circle from "./src/shapes/Circle.js";
 
 // References-------------------------------------
 const canvas = document.getElementById('board');
@@ -36,17 +37,20 @@ function Unit(v) {
     }
 }
 
-const unit = Unit(250);
+const unit = Unit(100);
 let SNAP = inputSnapSize.value;
 
 let points = [];
+let circles = [];
 
 // Default Functions--------------------------------
 function update(dt) {
-    console.log(points);
     Util.reset(ctx, offset);
     board.update(offset, unit.size);
     points.forEach(point => {
+        point.update(dt, unit.size);
+    });
+    circles.forEach(point => {
         point.update(dt, unit.size);
     });
     cursor.update(dt);
@@ -55,7 +59,7 @@ function update(dt) {
 function draw() {
     board.draw(offset, unit.size);
 
-    points.forEach(point => {
+    circles.forEach(point => {
         point.draw()
     });
 
@@ -82,7 +86,8 @@ requestAnimationFrame(mainLoop);
 
 // Events--------------------------------------------
 let canMove = false;
-
+let clicked = false;
+let selected;
 canvas.addEventListener('mousedown', e => {
     if (e.button == 1) {
         canMove = true;
@@ -91,7 +96,9 @@ canvas.addEventListener('mousedown', e => {
         let x = e.offsetX - offset.x;
         let y = e.offsetY - offset.y;
         [x, y] = Util.snapXY(x, y, unit.size, SNAP);
-        points.push(new Point(ctx, x, y));
+        selected = new Circle(ctx, x, y)
+        circles.push(selected);
+        clicked = true;
     }
 });
 
@@ -103,14 +110,19 @@ canvas.addEventListener('mousemove', e => {
     let y = e.offsetY - offset.y;
     [x, y] = Util.snapXY(x, y, unit.size, SNAP);
     cursor.setPos(x, y);
+    if (clicked && (selected.x != x || selected.y != y)) {
+        selected.setRadius(Math.max(Math.abs(selected.x - x), Math.abs(selected.y - y)));
+    }
 });
 
-canvas.addEventListener('mouseup', e => {
+window.addEventListener('mouseup', e => {
     canMove = false;
+    if (e.button == 0) {
+        clicked = false;
+    }
 });
 
 canvas.addEventListener('mouseleave', e => {
-    canMove = false;
     cursor.setPos(0, 0);
 });
 
