@@ -16,7 +16,7 @@ export default class Square {
 
     draw() {
         this.ctx.strokeStyle = 'white';
-        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'
         this.ctx.lineWidth = 2;
         this.ctx.strokeRect(this.fakeX, this.fakeY, this.fakeW, this.fakeH);
         this.ctx.fillRect(this.fakeX, this.fakeY, this.fakeW, this.fakeH);
