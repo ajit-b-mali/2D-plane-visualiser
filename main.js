@@ -9,6 +9,7 @@ import Cursor from "./src/Cursor.js";
 import Point from "./src/shapes/Point.js";
 import Circle from "./src/shapes/Circle.js";
 import Square from "./src/shapes/Square.js";
+import Line from "./src/shapes/Line.js";
 
 // References-------------------------------------
 const canvas = document.getElementById('board');
@@ -44,6 +45,7 @@ let SNAP = inputSnapSize.value;
 let points = [];
 let circles = [];
 let squares = [];
+let lines = [];
 
 // Default Functions--------------------------------
 function update(dt) {
@@ -58,6 +60,9 @@ function update(dt) {
     squares.forEach(square => {
         square.update(dt, unit.size);
     });
+    lines.forEach(line => {
+        line.update(dt, unit.size);
+    });
     cursor.update(dt);
 }
 
@@ -71,6 +76,9 @@ function draw() {
     });
     squares.forEach(square => {
         square.draw();
+    });
+    lines.forEach(line => {
+        line.draw();
     });
     cursor.draw(unit.size);
 }
@@ -105,8 +113,8 @@ canvas.addEventListener('mousedown', e => {
         let x = e.offsetX - offset.x;
         let y = e.offsetY - offset.y;
         [x, y] = Util.snapXY(x, y, unit.size, SNAP);
-        selected = new Circle(ctx, x, y)
-        squares.push(selected);
+        selected = new Line(ctx, x, y, x, y)
+        lines.push(selected);
         clicked = true;
     }
 });
@@ -119,8 +127,8 @@ canvas.addEventListener('mousemove', e => {
     let y = e.offsetY - offset.y;
     [x, y] = Util.snapXY(x, y, unit.size, SNAP);
     cursor.setPos(x, y);
-    if (clicked && (selected.center.x != x || selected.center.y != y)) {
-        selected.setRadius(Util.findDist(selected.center.x, selected.center.y, x, y));
+    if (clicked && (selected.b.x != x || selected.b.y != y)) {
+        selected.b.updatePos(x, y);
     }
 });
 
