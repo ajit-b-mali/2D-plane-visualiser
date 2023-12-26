@@ -52,7 +52,7 @@ export default class Board {
     draw({x, y}, UNITSIZE) {
         let iterate = this.iterate;
         let divisions = this.subiterate;
-
+        this.ctx.globalAlpha = 0.5;
         // Sub Axis Parrallel to X-Axis
         let from = this.fromTop;
         for (let i = -1; i < iterate; i++) {
@@ -110,5 +110,6 @@ export default class Board {
         // Y-Axis
         this.ctx.strokeStyle = this.mainAxis.yColor;
         util.drawLine(this.ctx, 0, -y, 0, -y + this.canvas.height);
+        this.ctx.globalAlpha = 1;
     }
 }
