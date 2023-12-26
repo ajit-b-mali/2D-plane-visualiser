@@ -43,50 +43,57 @@ function Unit(v) {
 const unit = Unit(100);
 let SNAP = inputSnapSize.value;
 
-let points = [];
-let circles = [];
-let squares = [];
-let lines = [];
-let rects = [];
+// let points = [];
+// let circles = [];
+// let squares = [];
+// let lines = [];
+// let rects = [];
+let shapes = [];
 
 // Default Functions--------------------------------
 function update(dt) {
     Util.reset(ctx, offset);
     board.update(offset, unit.size);
-    points.forEach(point => {
-        point.update(dt, unit.size);
-    });
-    circles.forEach(circle => {
-        circle.update(dt, unit.size);
-    });
-    squares.forEach(square => {
-        square.update(dt, unit.size);
-    });
-    rects.forEach(rect => {
-        rect.update(dt, unit.size);
-    });
-    lines.forEach(line => {
-        line.update(dt, unit.size);
+    // points.forEach(point => {
+    //     point.update(dt, unit.size);
+    // });
+    // circles.forEach(circle => {
+    //     circle.update(dt, unit.size);
+    // });
+    // squares.forEach(square => {
+    //     square.update(dt, unit.size);
+    // });
+    // rects.forEach(rect => {
+    //     rect.update(dt, unit.size);
+    // });
+    // lines.forEach(line => {
+    //     line.update(dt, unit.size);
+    // });
+    shapes.forEach(shape => {
+        shape.update(dt, unit.size);
     });
     cursor.update(dt);
 }
 
 function draw() {
     board.draw(offset, unit.size);
-    points.forEach(point => {
-        point.update(dt, unit.size);
-    });
-    circles.forEach(circle => {
-        circle.draw()
-    });
-    squares.forEach(square => {
-        square.draw();
-    });
-    lines.forEach(line => {
-        line.draw();
-    });
-    rects.forEach(rect => {
-        rect.draw();
+    // points.forEach(point => {
+    //     point.update(dt, unit.size);
+    // });
+    // circles.forEach(circle => {
+    //     circle.draw()
+    // });
+    // squares.forEach(square => {
+    //     square.draw();
+    // });
+    // lines.forEach(line => {
+    //     line.draw();
+    // });
+    // rects.forEach(rect => {
+    //     rect.draw();
+    // });
+    shapes.forEach(shape => {
+        shape.draw();
     });
     cursor.draw(unit.size);
 }
@@ -129,7 +136,7 @@ canvas.addEventListener('mousedown', e => {
         [x, y] = Util.snapXY(x, y, unit.size, SNAP);
         let a = option["rect"];
         selected = a(x, y);
-        rects.push(selected);
+        shapes.push(selected);
         clicked = true;
     }
 });
