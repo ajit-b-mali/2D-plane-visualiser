@@ -10,6 +10,7 @@ import Point from "./src/shapes/Point.js";
 import Circle from "./src/shapes/Circle.js";
 import Square from "./src/shapes/Square.js";
 import Line from "./src/shapes/Line.js";
+import Rect from "./src/shapes/Rect.js";
 
 // References-------------------------------------
 const canvas = document.getElementById('board');
@@ -46,6 +47,7 @@ let points = [];
 let circles = [];
 let squares = [];
 let lines = [];
+let rects = [];
 
 // Default Functions--------------------------------
 function update(dt) {
@@ -59,6 +61,9 @@ function update(dt) {
     });
     squares.forEach(square => {
         square.update(dt, unit.size);
+    });
+    rects.forEach(rect => {
+        rect.update(dt, unit.size);
     });
     lines.forEach(line => {
         line.update(dt, unit.size);
@@ -79,6 +84,9 @@ function draw() {
     });
     lines.forEach(line => {
         line.draw();
+    });
+    rects.forEach(rect => {
+        rect.draw();
     });
     cursor.draw(unit.size);
 }
@@ -102,19 +110,26 @@ function mainLoop(timeStamp) {
 requestAnimationFrame(mainLoop);
 
 // Events--------------------------------------------
+let x, y;
 let canMove = false;
 let clicked = false;
 let selected;
+let option = {
+    line: (x, y) => new Line(ctx, x, y, x, y),
+    circle: (x, y) => new Circle(ctx, x, y),
+    rect: (x, y) => new Rect(ctx, x, y)
+}
 canvas.addEventListener('mousedown', e => {
     if (e.button == 1) {
         canMove = true;
     }
     if (e.button == 0) {
-        let x = e.offsetX - offset.x;
-        let y = e.offsetY - offset.y;
+        x = e.offsetX - offset.x;
+        y = e.offsetY - offset.y;
         [x, y] = Util.snapXY(x, y, unit.size, SNAP);
-        selected = new Line(ctx, x, y, x, y)
-        lines.push(selected);
+        let a = option["rect"];
+        selected = a(x, y);
+        rects.push(selected);
         clicked = true;
     }
 });
@@ -127,8 +142,11 @@ canvas.addEventListener('mousemove', e => {
     let y = e.offsetY - offset.y;
     [x, y] = Util.snapXY(x, y, unit.size, SNAP);
     cursor.setPos(x, y);
-    if (clicked && (selected.b.x != x || selected.b.y != y)) {
-        selected.b.updatePos(x, y);
+    // let line = clicked && (selected.b.x != x || selected.b.y != y);
+    // let circle = clicked && (selected.center.x != x || selected.center.y != y);
+    let square = clicked && (selected.a.x != x || selected.a.y != y);
+    if (square) {
+        selected.updateSize(x, y);
     }
 });
 
