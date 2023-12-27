@@ -53,12 +53,12 @@ function rtoa(angle) {
 }
 
 // create a stroke Ellipse
-function ellipsePath(ctx, x, y, rx, ry, rt, type) {
+function ellipsePath(ctx, x, y, rx, ry, rt) {
     ctx.beginPath();
     ctx.ellipse(x, y, rx, ry, rt, 0, 2 * Math.PI);
     ctx.closePath();
-    if (type == "fill") ctx.fill();
-    else ctx.stroke()
+    ctx.fill();
+    ctx.stroke();
 }
 
 function findDist(ax, ay, bx, by) {
