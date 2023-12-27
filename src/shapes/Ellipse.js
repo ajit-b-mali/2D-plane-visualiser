@@ -6,7 +6,7 @@ export default class Ellipse {
         this.ctx = ctx;
         this.center = new Point(ctx, x, y);
         this.dx = 1;
-        this.dy = 1;
+        this.dy = 0.5;
     }
 
     update(dt, unitsize) {
@@ -29,7 +29,7 @@ export default class Ellipse {
     updateSize(x, y) {
         this.dx = Math.abs(this.center.x - x);
         this.dy = Math.abs(this.center.y - y);
-        this.dx = (!this.dx)? 0.1: this.dx;
-        this.dy = (!this.dy)? 0.1: this.dy;
+        this.dx = (!this.dx)? 0.05: this.dx;
+        this.dy = (!this.dy)? 0.05: this.dy;
     }
 }
