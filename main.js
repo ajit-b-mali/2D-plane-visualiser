@@ -94,7 +94,8 @@ let option = {
     circle: (x, y) => new Circle(ctx, x, y),
     rect: (x, y) => new Rect(ctx, x, y),
     point: (x, y) => new Point(ctx, x, y),
-    ellipse: (x, y) => new Ellipse(ctx, x, y)
+    ellipse: (x, y) => new Ellipse(ctx, x, y),
+    square: (x, y) => new Square(ctx, x, y),
 }
 canvas.addEventListener('mousedown', e => {
     if (e.button == 1) {
@@ -104,7 +105,7 @@ canvas.addEventListener('mousedown', e => {
         x = e.offsetX - offset.x;
         y = e.offsetY - offset.y;
         [x, y] = Util.snapXY(x, y, unit.size, SNAP);
-        let a = option["ellipse"];
+        let a = option["square"];
         selected = a(x, y);
         shapes.push(selected);
         clicked = true;
@@ -121,9 +122,9 @@ canvas.addEventListener('mousemove', e => {
     cursor.setPos(x, y);
     // let line = clicked && (selected.b.x != x || selected.b.y != y);
     // let circle = clicked && (selected.center.x != x || selected.center.y != y);
-    // let square = clicked && (selected.a.x != x || selected.a.y != y);
-    let ellipse = clicked && (selected.center.x != x || selected.center.y != y);
-    if (ellipse) {
+    let square = clicked && (selected.a.x != x || selected.a.y != y);
+    // let ellipse = clicked && (selected.center.x != x || selected.center.y != y);
+    if (square) {
         selected.updateSize(x, y);
     }
 });
