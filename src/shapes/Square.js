@@ -44,6 +44,8 @@ export default class Square {
     updateSize(x, y) {
         let dx = this.a.x - x;
         let dy = this.a.y - y;
+        dx = (!dx)? 0.1: dx;
+        dy = (!dy)? 0.1: dy;
         let d = Math.max(Math.abs(dx), Math.abs(dy));
         d = Math.round(d * 10) / 10;
         this.c.x = this.a.x + d * Math.sign(dx) * -1;
