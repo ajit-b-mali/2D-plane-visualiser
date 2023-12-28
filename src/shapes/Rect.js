@@ -25,6 +25,7 @@ export default class Rect {
         this.c.draw();
         this.d.draw();
         this.ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+        this.ctx.lineWidth = 2;
         if (Math.abs(this.ab - this.ad) < 0.01 && Math.abs(this.ad - this.ab) >= -0.01) {
             this.ctx.strokeStyle = 'white';
         } else {

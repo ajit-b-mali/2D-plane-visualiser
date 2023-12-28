@@ -18,6 +18,7 @@ export default class Ellipse {
     draw() {
         this.a.draw();
         this.ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+        this.ctx.lineWidth = 2;
         if (Math.abs(this.dy - this.dx) < 0.01 && Math.abs(this.dx - this.dy) >= -0.01) {
             this.ctx.strokeStyle = 'white';
         } else {
