@@ -36,7 +36,6 @@ export default class Square {
         this.ctx.lineTo(this.b.fakeX, this.b.fakeY);
         this.ctx.lineTo(this.c.fakeX, this.c.fakeY);
         this.ctx.lineTo(this.d.fakeX, this.d.fakeY);
-        this.ctx.lineTo(this.a.fakeX, this.a.fakeY);
         this.ctx.closePath();
         this.ctx.stroke();
         this.ctx.fill();
