@@ -18,6 +18,7 @@ const canvas = document.getElementById('board');
 const ctx = canvas.getContext('2d');
 
 const inputSnapSize = document.getElementById('snapSize');
+const shapeSelector = document.getElementById('shape');
 
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
@@ -88,6 +89,7 @@ requestAnimationFrame(mainLoop);
 let x, y;
 let canMove = false;
 let clicked = false;
+let create = shapeSelector.value;
 let selected;
 let option = {
     line: (x, y) => new Line(ctx, x, y, x, y),
@@ -105,7 +107,7 @@ canvas.addEventListener('mousedown', e => {
         x = e.offsetX - offset.x;
         y = e.offsetY - offset.y;
         [x, y] = Util.snapXY(x, y, unit.size, SNAP);
-        let a = option["square"];
+        let a = option[create];
         selected = a(x, y);
         shapes.push(selected);
         clicked = true;
@@ -120,11 +122,7 @@ canvas.addEventListener('mousemove', e => {
     let y = e.offsetY - offset.y;
     [x, y] = Util.snapXY(x, y, unit.size, SNAP);
     cursor.setPos(x, y);
-    // let line = clicked && (selected.b.x != x || selected.b.y != y);
-    // let circle = clicked && (selected.center.x != x || selected.center.y != y);
-    let square = clicked && (selected.a.x != x || selected.a.y != y);
-    // let ellipse = clicked && (selected.center.x != x || selected.center.y != y);
-    if (square) {
+    if (clicked && create != "point" && (selected.a.x != x || selected.a.y != y)) {
         selected.updateSize(x, y);
     }
 });
@@ -185,4 +183,8 @@ window.addEventListener('resize', _ => {
 
 inputSnapSize.addEventListener('change', e => {
     SNAP = e.target.value;
+});
+
+shapeSelector.addEventListener('change', e => {
+    create = e.target.value;
 });

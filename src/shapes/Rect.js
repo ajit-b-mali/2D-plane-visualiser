@@ -1,4 +1,4 @@
-import { findDist } from "../Util.js";
+import { snapXY } from "../Util.js";
 import Point from "./Point.js";
 
 export default class Rect {
@@ -28,7 +28,7 @@ export default class Rect {
         if (Math.abs(this.ab - this.ad) < 0.01 && Math.abs(this.ad - this.ab) >= -0.01) {
             this.ctx.strokeStyle = 'white';
         } else {
-            this.ctx.strokeStyle = 'grey';
+            this.ctx.strokeStyle = 'gray';
         }
         this.ctx.beginPath();
         this.ctx.moveTo(this.a.fakeX, this.a.fakeY);
@@ -42,9 +42,15 @@ export default class Rect {
     }
 
     updateSize(x, y) {
-        this.c.x = x;
-        this.c.y = y;
-        this.b.x = x;
-        this.d.y = y;
+        let dx = this.a.x - x;
+        let dy = this.a.y - y;
+        dx = (!dx)? 0.1: dx;
+        dy = (!dy)? 0.1: dy;
+        this.c.x = this.a.x - dx;
+        this.c.y = this.a.y - dy;
+        this.c.x = Math.round(this.c.x * 10) / 10;
+        this.c.y = Math.round(this.c.y * 10) / 10;
+        this.b.x = this.c.x;
+        this.d.y = this.c.y;
     }
 }

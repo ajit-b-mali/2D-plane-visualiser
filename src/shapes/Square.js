@@ -52,6 +52,5 @@ export default class Square {
         this.c.y = this.a.y + d * Math.sign(dy) * -1;
         this.b.x = this.c.x;
         this.d.y = this.c.y;
-        console.log(d)
     }
 }

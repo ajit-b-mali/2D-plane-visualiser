@@ -17,6 +17,12 @@ export default class Line {
         this.a.draw();
         this.b.draw();
         this.ctx.strokeStyle = 'white';
+        this.ctx.lineWidth = 2;
         Util.drawLine(this.ctx, this.a.fakeX, this.a.fakeY, this.b.fakeX, this.b.fakeY);
+    }
+
+    updateSize(x, y) {
+        this.b.x = x;
+        this.b.y = y;
     }
 }
