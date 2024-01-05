@@ -6,6 +6,8 @@ export default class Circle {
         this.a = new Point(ctx, x, y);
         this.r = 1;
         this.color = Math.random() * 360;
+        this.selected = false;
+        this.type = "circle";
     }
 
     update(dt, unitsize) {
@@ -16,7 +18,7 @@ export default class Circle {
     draw() {
         this.a.draw();
         this.ctx.strokeStyle = 'white';
-        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'
+        this.ctx.fillStyle = this.selected? 'red': 'rgba(255, 255, 255, 0.2)';
         this.ctx.lineWidth = 2;
         this.ctx.beginPath();
         this.ctx.arc(this.a.fakeX, this.a.fakeY, this.fakeR, 0, 2 * Math.PI);

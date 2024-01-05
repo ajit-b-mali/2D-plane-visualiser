@@ -47,6 +47,10 @@ let SNAP = inputSnapSize.value;
 
 let shapes = [];
 
+function pointCircle(px, py, cx, cy, cr) {
+    return (px - cx) ** 2 + (py - cy) ** 2 < cr ** 2;
+}
+
 // Default Functions--------------------------------
 function update(dt) {
     Util.reset(ctx, offset);
@@ -102,6 +106,7 @@ let option = {
 canvas.addEventListener('mousedown', e => {
     if (e.button == 1) {
         canMove = true;
+        e.preventDefault();
     }
     if (e.button == 0) {
         x = e.offsetX - offset.x;
@@ -111,6 +116,16 @@ canvas.addEventListener('mousedown', e => {
             let a = option[create];
             selected = a(x, y);
             shapes.push(selected);
+        } else {
+            shapes.forEach(shape => {
+                shape.selected = false;
+                x = e.offsetX - offset.x;
+                y = e.offsetY - offset.y;
+                if (shape.type = "circle" && pointCircle(x, y, shape.a.fakeX, shape.a.fakeY, shape.fakeR)) {
+                    shape.selected = true;
+                    selected = shape;
+                }
+            })
         }
         clicked = true;
     }
@@ -127,12 +142,16 @@ canvas.addEventListener('mousemove', e => {
     if (create != "select" && clicked && create != "point" && (selected.a.x != x || selected.a.y != y)) {
         selected.updateSize(x, y);
     }
+    if (selected) {
+        selected.updateSize(x, y);
+    }
 });
 
 window.addEventListener('mouseup', e => {
     canMove = false;
     if (e.button == 0) {
         clicked = false;
+        selected = null;
     }
 });
 
