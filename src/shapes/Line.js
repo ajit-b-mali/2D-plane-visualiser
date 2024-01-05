@@ -5,7 +5,7 @@ export default class Line {
     constructor(ctx, x1, y1, x2, y2) {
         this.ctx = ctx;
         this.a = new Point(this.ctx, x1, y1);
-        this.b = new Point(this.ctx, x2, y2);        
+        this.b = new Point(this.ctx, x2 + 0.1, y2);        
     }
 
     update(dt, unitsize) {

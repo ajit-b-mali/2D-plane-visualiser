@@ -107,9 +107,11 @@ canvas.addEventListener('mousedown', e => {
         x = e.offsetX - offset.x;
         y = e.offsetY - offset.y;
         [x, y] = Util.snapXY(x, y, unit.size, SNAP);
-        let a = option[create];
-        selected = a(x, y);
-        shapes.push(selected);
+        if (create != "select") {
+            let a = option[create];
+            selected = a(x, y);
+            shapes.push(selected);
+        }
         clicked = true;
     }
 });
@@ -122,7 +124,7 @@ canvas.addEventListener('mousemove', e => {
     let y = e.offsetY - offset.y;
     [x, y] = Util.snapXY(x, y, unit.size, SNAP);
     cursor.setPos(x, y);
-    if (clicked && create != "point" && (selected.a.x != x || selected.a.y != y)) {
+    if (create != "select" && clicked && create != "point" && (selected.a.x != x || selected.a.y != y)) {
         selected.updateSize(x, y);
     }
 });
