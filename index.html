@@ -3,48 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizer HUB</title>
     <link rel="stylesheet" href="style.css">
+    <title>Visualizer HUB</title>
 </head>
 <body>
-    <!-- Main Screen -------------------------------------------------------- -->
-    <div class="container" >
-        <canvas id="board"></canvas>
-    </div>
-
-    <!-- Properties tab ----------------------------------------------------- -->
-    <div class="properties">
-        <!-- Board Properties ----------------------------------------------- -->
-        <div class="board">
-
-            <!-- Grid Snap Size -->
-            <div class="snapSize">
-                <label for="snapSize">Select the snap </label>
-                <select name="snapSize" id="snapSize">
-                    <option value="0">none</option>
-                    <option value="0.05">0.05</option>
-                    <option value="0.10" selected>0.10</option>
-                    <option value="0.20">0.20</option>
-                    <option value="0.25">0.25</option>
-                    <option value="0.50">0.50</option>
-                    <option value="1.00">1.00</option>
-                </select>
+    <div class="app">
+        <header>
+            <div class="appName">
+                <h1>Visualiser.io</h1>
             </div>
-            <div>
-                <label for="shape">Select the Shape </label>
-                <select name="shape" id="shape">
-                    <option value="select" selected>Select</option>
-                    <option value="point">Point</option>
-                    <option value="rect">Rectangle</option>
-                    <option value="square">Square</option>
-                    <option value="circle">Circle</option>
-                    <option value="ellipse">Ellipse</option>
-                    <option value="line">Line</option>
-                </select>
+            <menu type="context" class="menu">
+                <ul>
+                    <li>file</li>
+                    <li>setting</li>
+                    <li>new</li>
+                    <li>help</li>
+                </ul>
+                <div class="user">
+                    <h2>user name</h2>
+                </div>
+            </menu>
+        </header>
+        <main>
+            <menu type="toolbar" class="left-menu">
+                <ul class="tools">
+                    <li>a</li>
+                    <li>b</li>
+                    <li>c</li>
+                    <li>d</li>
+                    <li>e</li>
+                    <li>f</li>
+                    <li>g</li>
+                </ul>
+                <ul class="shortcuts">
+                    <li>h</li>
+                    <li>i</li>
+                    <li>j</li>
+                </ul>
+            </menu>
+            <div class="screen">
+                <menu type="toolbar" class="options"></menu>
+                <canvas id="board"></canvas>
             </div>
-        </div>
+            <aside class="properties">
+                <div class="boardProp">
+                    <div class="snapSize">
+                        <label for="snapSize">Select the snap </label>
+                        <select name="snapSize" id="snapSize">
+                            <option value="0">none</option>
+                            <option value="0.05">0.05</option>
+                            <option value="0.10" selected>0.10</option>
+                            <option value="0.20">0.20</option>
+                            <option value="0.25">0.25</option>
+                            <option value="0.50">0.50</option>
+                            <option value="1.00">1.00</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="shape">Select the Shape </label>
+                        <select name="shape" id="shape">
+                            <option value="select" selected>Select</option>
+                            <option value="point">Point</option>
+                            <option value="rect">Rectangle</option>
+                            <option value="square">Square</option>
+                            <option value="circle">Circle</option>
+                            <option value="ellipse">Ellipse</option>
+                            <option value="line">Line</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="shapeProp"></div>
+            </aside>
+        </main>
+        <footer>
+            <ul>
+                <li>credit</li>
+                <li>profile</li>
+                <li>about</li>
+                <li>feedback</li>
+            </ul>
+        </footer>
     </div>
-    
     <script type="module" src="main.js"></script>
 </body>
 </html>
