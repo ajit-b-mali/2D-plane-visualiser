@@ -207,12 +207,18 @@ inputSnapSize.addEventListener('change', e => {
     SNAP = e.target.value;
 });
 
-// tools.forEach(tool => {
-//     tool.onclick = () => create = tool.dataset.tool;
-// });
-
 tools.addEventListener('click', (e) => {
     create = e.target.dataset.tool;
+    let toolList = tools.children;
+    for (const tool of toolList) {
+        if(create == tool.dataset.tool) {
+            tool.style.backgroundColor = 'black';
+            tool.style.color = 'white';
+        } else {
+            tool.style.backgroundColor = '';
+            tool.style.color = '';
+        }
+    }
 });
 
 // shapeSelector.addEventListener('change', e => {
