@@ -183,3 +183,10 @@ footer li:hover {
     color: white;
 }
 /***************************/
+/**************Miscellinas***/
+
+.active {
+    background-color: aliceblue;
+}
+
+/***********************************/

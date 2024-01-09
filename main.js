@@ -18,7 +18,7 @@ const canvas = document.getElementById('board');
 const ctx = canvas.getContext('2d');
 
 const inputSnapSize = document.getElementById('snapSize');
-const shapeSelector = document.getElementById('shape');
+const tools = document.querySelector('.tools');
 
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
@@ -93,7 +93,7 @@ requestAnimationFrame(mainLoop);
 let x, y;
 let canMove = false;
 let clicked = false;
-let create = shapeSelector.value;
+let create = 'select';
 let selected;
 let option = {
     line: (x, y) => new Line(ctx, x, y, x, y),
@@ -116,17 +116,18 @@ canvas.addEventListener('mousedown', e => {
             let a = option[create];
             selected = a(x, y);
             shapes.push(selected);
-        } else {
-            shapes.forEach(shape => {
-                shape.selected = false;
-                x = e.offsetX - offset.x;
-                y = e.offsetY - offset.y;
-                if (shape.type = "circle" && pointCircle(x, y, shape.a.fakeX, shape.a.fakeY, shape.fakeR)) {
-                    shape.selected = true;
-                    selected = shape;
-                }
-            })
-        }
+        } 
+        // else {
+        //     shapes.forEach(shape => {
+        //         shape.selected = false;
+        //         x = e.offsetX - offset.x;
+        //         y = e.offsetY - offset.y;
+        //         if (shape.type = "circle" && pointCircle(x, y, shape.a.fakeX, shape.a.fakeY, shape.fakeR)) {
+        //             shape.selected = true;
+        //             selected = shape;
+        //         }
+        //     })
+        // }
         clicked = true;
     }
 });
@@ -206,6 +207,14 @@ inputSnapSize.addEventListener('change', e => {
     SNAP = e.target.value;
 });
 
-shapeSelector.addEventListener('change', e => {
-    create = e.target.value;
+// tools.forEach(tool => {
+//     tool.onclick = () => create = tool.dataset.tool;
+// });
+
+tools.addEventListener('click', (e) => {
+    create = e.target.dataset.tool;
 });
+
+// shapeSelector.addEventListener('change', e => {
+//     create = e.target.value;
+// });
