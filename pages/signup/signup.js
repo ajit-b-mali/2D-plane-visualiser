@@ -4,18 +4,18 @@ import app from '../../firebase.config.js';
 const signUpBtn = document.querySelector('#signUpBtn');
 const emailField = document.querySelector('#email');
 const passwordField = document.querySelector('#password');
+const userNameField = document.querySelector('#username');
 const auth = getAuth(app);
 
 signUpBtn.addEventListener('click', _ => {
     const email = emailField.value;
     const password = passwordField.value;
+    const userName = userNameField.value;
     createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log(user);
-        })
-        .then(_ => {
-            location.href = '../profile/index.html';
+        .then((userCredential) => userCredential.user)
+        .then(user => {
+            user.dispalyName = userName;
+            location.href = "../profile/index.html";
         })
         .catch((error) => {
             const errorCode = error.code;
