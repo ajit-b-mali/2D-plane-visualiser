@@ -16,13 +16,12 @@ signInBtn.addEventListener('click', _ => {
             return user;
         })
         .then((user) => {
-            const userStr = JSON.stringify(user);
-            localStorage.setItem('user', userStr);
             location.href = "../profile/index.html";
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(errorCode, errorMessage);
+            alert(errorCode, errorMessage);
         })
 });
