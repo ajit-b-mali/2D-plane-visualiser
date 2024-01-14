@@ -26,8 +26,7 @@ body {
 }
 
 header {
-    margin-block-end: 5rem;
-    margin-block-start: 3rem;
+    margin-block: 3rem;
     margin-inline: auto;
     max-width: 550px;
 }

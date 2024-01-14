@@ -10,14 +10,8 @@ signInBtn.addEventListener('click', _ => {
     const email = emailField.value;
     const password = passwordField.value;
     signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            user.dsplayName = "Ajit MAli";
-            return user;
-        })
-        .then((user) => {
-            const userStr = JSON.stringify(user);
-            localStorage.setItem('user', userStr);
+        .then((userCredential) => userCredential.user)
+        .then(_ => {
             location.href = "../profile/index.html";
         })
         .catch((error) => {

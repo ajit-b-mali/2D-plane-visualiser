@@ -4,12 +4,14 @@ import app from '../../firebase.config.js';
 const auth = getAuth(app);
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        // User is signed in.
         const uid = user.uid;
-        
+        h1Update(user.displayName);
+        console.log(user);
+    } else {
+        // user is signed out
     }
 });
 
 function h1Update(text) {
-    document.querySelector('h1').innerText = 'text';
+    document.querySelector('h1').innerText = text;
 }
