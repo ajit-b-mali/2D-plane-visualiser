@@ -209,6 +209,7 @@ inputSnapSize.addEventListener('change', e => {
 
 tools.addEventListener('click', (e) => {
     create = e.target.dataset.tool;
+    console.log(create)
     let toolList = tools.children;
     for (const tool of toolList) {
         if(create == tool.dataset.tool) {
