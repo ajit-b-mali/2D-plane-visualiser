@@ -117,7 +117,10 @@ canvas.addEventListener('mousedown', e => {
         if (create != "select") {
             let a = option[create];
             selected = a(x, y);
+            selected.selected = true;
             shapes.push(selected);
+        } else {
+            shapes.forEach(shape => shape.selected = false)
         }
         clicked = true;
     }
@@ -214,6 +217,9 @@ function contextMenuManage() {
             if (contextMenu.clientHeight + y > window.innerHeight) {
                 y -= contextMenu.clientHeight;
             }
+            if (contextMenu.clientWidth + x > window.innerWidth) {
+                x -= contextMenu.clientWidth;
+            }
             contextMenu.style.left = `${x}px`;
             contextMenu.style.top = `${y}px`;
             contextMenu.style.visibility = "visible";
@@ -226,7 +232,7 @@ function contextMenuManage() {
 
 const contextMenu = new contextMenuManage;
 
-canvas.addEventListener('contextmenu', (e) => {
+window.addEventListener('contextmenu', (e) => {
     e.preventDefault();
     let x = e.clientX;
     let y = e.clientY;

@@ -18,14 +18,44 @@ export default class Circle {
     draw() {
         this.a.draw();
         this.ctx.strokeStyle = 'white';
-        this.ctx.fillStyle = this.selected? 'red': 'rgba(255, 255, 255, 0.2)';
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
         this.ctx.lineWidth = 2;
         this.ctx.beginPath();
         this.ctx.arc(this.a.fakeX, this.a.fakeY, this.fakeR, 0, 2 * Math.PI);
         this.ctx.closePath();
         this.ctx.stroke();
         this.ctx.fill();
-        Util.drawLine(this.ctx, this.a.fakeX, this.a.fakeY, this.a.fakeX + this.fakeR, this.a.fakeY);
+
+        if (this.selected) {
+            Util.drawLine(
+                this.ctx,
+                this.a.fakeX - this.fakeR,
+                this.a.fakeY - this.fakeR,
+                this.a.fakeX + this.fakeR,
+                this.a.fakeY - this.fakeR
+            );
+            Util.drawLine(
+                this.ctx,
+                this.a.fakeX - this.fakeR,
+                this.a.fakeY - this.fakeR,
+                this.a.fakeX - this.fakeR,
+                this.a.fakeY + this.fakeR
+            );
+            Util.drawLine(
+                this.ctx,
+                this.a.fakeX - this.fakeR,
+                this.a.fakeY + this.fakeR,
+                this.a.fakeX + this.fakeR,
+                this.a.fakeY + this.fakeR
+            );
+            Util.drawLine(
+                this.ctx,
+                this.a.fakeX + this.fakeR,
+                this.a.fakeY + this.fakeR,
+                this.a.fakeX + this.fakeR,
+                this.a.fakeY - this.fakeR
+            );
+        }
     }
 
     updateSize(x, y) {
