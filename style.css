@@ -195,3 +195,32 @@ img {
     display: block;
     pointer-events: none;
 }
+
+#context-menu {
+    display: grid;
+    visibility: hidden;
+    position: absolute;
+    z-index: 100;
+    padding-block: 1rem;
+    background-color: #121212;
+    color: bisque;
+    outline: 2px solid #343434;
+    list-style: none;
+    gap: 0.5rem;
+}
+
+#context-menu li {
+    border: 1px solid #343434;
+    background-color: #232323;
+    padding: 0.25rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+#context-menu li:hover {
+    background-color: bisque;
+    color: #121212;
+    font-weight: 700;
+}
+
+#context-menu h2 {
+    margin: 0.5rem;
+}

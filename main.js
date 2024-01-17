@@ -23,6 +23,12 @@ const tools = document.querySelector('.tools');
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
 
+window.addEventListener('resize', _ => {
+    canvas.width = canvas.width = canvas.clientWidth;
+    canvas.height = canvas.height = canvas.clientHeight;
+    offset.update(0, 0);
+});
+
 const board = new Board(canvas);
 const offset = new Offset(canvas);
 const cursor = new Cursor(canvas);
@@ -46,10 +52,6 @@ const unit = Unit(100);
 let SNAP = inputSnapSize.value;
 
 let shapes = [];
-
-function pointCircle(px, py, cx, cy, cr) {
-    return (px - cx) ** 2 + (py - cy) ** 2 < cr ** 2;
-}
 
 // Default Functions--------------------------------
 function update(dt) {
@@ -116,18 +118,7 @@ canvas.addEventListener('mousedown', e => {
             let a = option[create];
             selected = a(x, y);
             shapes.push(selected);
-        } 
-        // else {
-        //     shapes.forEach(shape => {
-        //         shape.selected = false;
-        //         x = e.offsetX - offset.x;
-        //         y = e.offsetY - offset.y;
-        //         if (shape.type = "circle" && pointCircle(x, y, shape.a.fakeX, shape.a.fakeY, shape.fakeR)) {
-        //             shape.selected = true;
-        //             selected = shape;
-        //         }
-        //     })
-        // }
+        }
         clicked = true;
     }
 });
@@ -162,7 +153,7 @@ canvas.addEventListener('mouseleave', e => {
 
 window.addEventListener('wheel', e => {
     e.preventDefault();
-}, {passive: false});
+}, { passive: false });
 
 canvas.addEventListener('wheel', e => {
     let zoomSpeed = (unit.size >= 70) ? 20 : 50;
@@ -197,22 +188,15 @@ window.addEventListener('keydown', e => {
     }
 }, { passive: false });
 
-window.addEventListener('resize', _ => {
-    canvas.width = canvas.width = canvas.clientWidth;
-    canvas.height = canvas.height = canvas.clientHeight;
-    offset.update(0, 0);
-});
-
 inputSnapSize.addEventListener('change', e => {
     SNAP = e.target.value;
 });
 
 tools.addEventListener('click', (e) => {
     create = e.target.dataset.tool;
-    console.log(create)
     let toolList = tools.children;
     for (const tool of toolList) {
-        if(create == tool.dataset.tool) {
+        if (create == tool.dataset.tool) {
             tool.style.backgroundColor = 'black';
             tool.style.color = 'white';
         } else {
@@ -222,6 +206,31 @@ tools.addEventListener('click', (e) => {
     }
 });
 
-// shapeSelector.addEventListener('change', e => {
-//     create = e.target.value;
-// });
+function contextMenuManage() {
+    const contextMenu = document.getElementById('context-menu');
+
+    return {
+        showOption: (x, y) => {
+            if (contextMenu.clientHeight + y > window.innerHeight) {
+                y -= contextMenu.clientHeight;
+            }
+            contextMenu.style.left = `${x}px`;
+            contextMenu.style.top = `${y}px`;
+            contextMenu.style.visibility = "visible";
+        },
+        hideOption: () => {
+            contextMenu.style.visibility = "hidden";
+        }
+    }
+}
+
+const contextMenu = new contextMenuManage;
+
+canvas.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    let x = e.clientX;
+    let y = e.clientY;
+    contextMenu.showOption(x, y);
+}, { passive: false });
+
+window.addEventListener('click', contextMenu.hideOption)
