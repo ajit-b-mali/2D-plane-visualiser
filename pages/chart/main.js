@@ -5,16 +5,16 @@ let chart;
 
 const dataList = [
     {
-        label: "abc",
-        value: 10
+        label: "asdf",
+        value: 50,
     },
     {
-        label: "pqr",
-        value: 20
+        label: "qwert",
+        value: 60,
     },
     {
-        label: "xyz",
-        value: 30
+        label: "zxcv",
+        value: 40,
     },
 ];
 
@@ -76,12 +76,10 @@ function createChart() {
     var xValues = dataList.map(data => data.label);
     var yValues = dataList.map(data => parseInt(data.value));
     var barColors = dataList.map(_ => `hsl(${Math.random() * 360}, 100%, 50%)`);
-
+    
     const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
     chart?.destroy();
-    chart = new Chart("canvas", {
+    chart = new Chart(document.getElementById("canvas") , {
         type: "bar",
         data: {
             labels: xValues,
@@ -100,7 +98,17 @@ function createChart() {
             }
         }
     });
-    console.log(chart.options.scales);
+    // const img = new Image();
+    // img.src = chart.toBase64Image()
+    // const anchorEl = document.createElement("a");
+    // anchorEl.href = chart.toBase64Image();
+    // anchorEl.download = "imaage.png"
+    // document.body.appendChild(anchorEl);
+    // anchorEl.click();
+    // const anchorEl = document.createElement("a");
+    // anchorEl.download = "canvas.png";
+    // anchorEl.href = canvas.toDataURL('image/png', 1);
+    // anchorEl.click();
 }
 
 function init() {
@@ -113,3 +121,14 @@ document.querySelector("#options > .btn").addEventListener("click", (event) => {
     if (isAdding) return;
     addInputFieldToList(dataList.length + 1);
 });
+
+function download() {
+    const imageLink = document.createElement('a');
+    const canvas = document.getElementById("canvas");
+    imageLink.href = canvas.toDataURL('image/png', 1);
+    imageLink.download = "canvas.png";
+    // document.write('<img src=" ' + imageLink + ' "/>')
+    // console.log(imageLink.href)
+    imageLink.click();
+
+}

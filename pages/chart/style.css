@@ -124,4 +124,10 @@ input {
     max-width: 550px;
     margin-inline: auto;
     margin-block: 2rem;
+    max-height: 300px;
+}
+
+.canvas-container > * {
+    width: 100%;
+    height: 100%;
 }
