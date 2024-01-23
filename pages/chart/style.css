@@ -1,0 +1,127 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html,
+button {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    user-select: none;
+}
+
+main {
+    padding-block: 3rem;
+    min-height: 100svh;
+}
+
+#item-table {
+    min-width: 450px;
+    max-width: 550px;
+    margin-inline: auto;
+}
+
+#item-table > * {
+    display: flex;
+    outline: 1px solid black;
+    height: 50px;
+    transition: border-radius ease-out 125ms;
+}
+#item-table > div:hover {
+    padding-inline: 0.5rem;
+    border-radius: 0.75rem; 
+    backdrop-filter: blur(0.25rem);
+    box-shadow: inset 0 0 0.5rem gold;
+    animation: pop 125ms ease-in-out forwards;
+}
+
+#item-table > *:hover > li {
+    border: 0;
+}
+#item-table:hover > div:not(:hover) {
+    filter: blur(3px);
+}
+@keyframes pop {
+    0% {
+        scale: 1;
+    }
+    75% {
+        scale: 1.05;
+    }
+    100% {
+        scale: 1.04;
+    }
+}
+
+li {
+    border-right: 1px solid black;
+    list-style: none;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    display: grid;
+    place-items: center;
+    font-size: 1.25rem;
+}
+
+li:nth-child(1) {
+    width: 70px;
+}
+li:nth-child(2) {
+    flex: 1;
+}
+li:nth-child(3) {
+    width: 150px;
+}
+li:nth-child(4) {
+    width: 90px;
+    border: none;
+    gap: 0.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.check-btn {
+    flex: 1;
+    padding: .125rem;
+    color: green;
+    font-size: 0.9rem;
+    border: 2px solid black;
+    background-color: transparent;
+    border-radius: 0.5rem;
+}
+
+.check-btn:hover:not(:active){
+    background-color: #dfdfdf;
+}
+
+#options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 1rem;
+    gap: 1rem;
+}
+
+.btn {
+    padding-block: 0.25rem;
+    padding-inline: 1rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+
+input {
+    width: 100%;
+    padding-block: 0.25rem;
+    font-size: 1.25rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    text-align: center;
+}    
+
+.canvas-container {
+    max-width: 550px;
+    margin-inline: auto;
+    margin-block: 2rem;
+}

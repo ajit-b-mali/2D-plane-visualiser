@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Excel File</title>
+</head>
+
+<body>
+    <input type="file" id="excelFileInput" accept=".xls, .xlsx, .ods" />
+    <div id="output"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script>
+        document.getElementById('excelFileInput').addEventListener('change', handleFile);
+
+        function handleFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+
+                    // Assuming only one sheet in the workbook
+                    const firstSheetName = workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[firstSheetName];
+
+                    // Parse the data in the sheet
+                    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+                    // Display the data (you can customize this part based on your needs)
+                    const outputElement = document.getElementById('output');
+                    outputElement.innerHTML = '<pre>' + JSON.stringify(jsonData, null, 2) + '</pre>';
+                };
+
+                reader.readAsArrayBuffer(file);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
