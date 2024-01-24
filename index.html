@@ -1,86 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Visualizer HUB</title>
-  </head>
-  <body>
-    <div id="context-menu">
-      <h2>select option</h2>
-      <li>ajit</li>
-      <li>mali</li>
-      <li>bhaskar</li>
-      <li>patil</li>
-      <li>harsh</li>
-      <li>alase</li>
-    </div>
-    <div class="app">
-      <header>
-        <div class="appName">
-          <h1>Visualiser.io</h1>
-        </div>
-        <menu type="context" class="menu">
-          <ul>
-            <li>file</li>
-            <li>setting</li>
-            <li>new</li>
-            <li>help</li>
-          </ul>
-          <div class="user">
-            <h2>user name</h2>
-          </div>
-        </menu>
-      </header>
-      <main>
-        <menu type="toolbar" class="left-menu">
-          <ul class="tools">
-            <li data-tool="select"><img src="./assets/select.svg" alt="" /></li>
-            <li data-tool="point"><img src="./assets/point.svg" alt=""></li>
-            <li data-tool="line"><img src="./assets/line.svg" alt=""></li>
-            <li data-tool="rect"><img src="./assets/rect.svg" alt=""></li>
-            <li data-tool="square"><img src="./assets/square.svg" alt=""></li>
-            <li data-tool="circle"><img src="./assets/circle.svg" alt=""></li>
-            <li data-tool="ellipse"><img src="./assets/ellipse.svg" alt=""></li>
-          </ul>
-          <ul class="shortcuts">
-            <li>h</li>
-            <li>i</li>
-            <li>j</li>
-          </ul>
-        </menu>
-        <div class="screen">
-          <menu type="toolbar" class="options"></menu>
-          <canvas id="board"></canvas>
-        </div>
-        <aside class="properties">
-          <div class="boardProp">
-            <div class="snapSize">
-              <label for="snapSize">Select the snap </label>
-              <select name="snapSize" id="snapSize">
-                <option value="0">none</option>
-                <option value="0.05">0.05</option>
-                <option value="0.10" selected>0.10</option>
-                <option value="0.20">0.20</option>
-                <option value="0.25">0.25</option>
-                <option value="0.50">0.50</option>
-                <option value="1.00">1.00</option>
-              </select>
-            </div>
-          </div>
-          <div class="shapeProp"></div>
-        </aside>
-      </main>
-      <footer>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Visualizer HUB</title>
+</head>
+
+<body>
+  <div id="context-menu">
+    <h2>select option</h2>
+    <li>ajit</li>
+    <li>mali</li>
+    <li>bhaskar</li>
+    <li>patil</li>
+    <li>harsh</li>
+    <li>alase</li>
+  </div>
+  <div class="app">
+    <header>
+      <div class="appName">
+        <h1>Visualiser.io</h1>
+      </div>
+      <menu type="context" class="menu">
         <ul>
-          <li>credit</li>
-          <li>profile</li>
-          <li>about</li>
-          <li>feedback</li>
+          <li>file</li>
+          <li>setting</li>
+          <li>new</li>
+          <li>help</li>
         </ul>
-      </footer>
-    </div>
-    <script type="module" src="main.js"></script>
-  </body>
+        <div class="user">
+          <h2>user name</h2>
+        </div>
+      </menu>
+    </header>
+    <main>
+      <menu type="toolbar" class="left-menu">
+        <ul class="tools">
+          <li data-tool="select"><img src="./assets/select.svg" alt="" /></li>
+          <li data-tool="point"><img src="./assets/point.svg" alt=""></li>
+          <li data-tool="line"><img src="./assets/line.svg" alt=""></li>
+          <li data-tool="rect"><img src="./assets/rect.svg" alt=""></li>
+          <li data-tool="square"><img src="./assets/square.svg" alt=""></li>
+          <li data-tool="circle"><img src="./assets/circle.svg" alt=""></li>
+          <li data-tool="ellipse"><img src="./assets/ellipse.svg" alt=""></li>
+        </ul>
+        <ul class="shortcuts">
+          <li>h</li>
+          <li>i</li>
+          <li>j</li>
+        </ul>
+      </menu>
+      <div class="screen">
+        <menu type="toolbar" class="options"></menu>
+        <canvas id="board"></canvas>
+      </div>
+      <aside class="properties">
+        <div class="boardProp">
+          <div class="snapSize">
+            <label for="snapSize">Select the snap </label>
+            <select name="snapSize" id="snapSize">
+              <option value="0">none</option>
+              <option value="0.05">0.05</option>
+              <option value="0.10" selected>0.10</option>
+              <option value="0.20">0.20</option>
+              <option value="0.25">0.25</option>
+              <option value="0.50">0.50</option>
+              <option value="1.00">1.00</option>
+            </select>
+          </div>
+        </div>
+        <div class="shapeProp">
+          <div id="circleHtml">
+            <label for="x">x</label><input type="number" id="x">
+            <label for="y">y</label><input type="number" id="y">
+            <label for="r">r</label><input type="number" id="r">
+          </div>
+          <div id="rectangleHtml">
+            <label for="x">x</label><input type="number" id="x">
+            <label for="y">y</label><input type="number" id="y">
+            <label for="w">w</label><input type="number" id="w">
+            <label for="h">h</label><input type="number" id="h">
+          </div>
+        </div>
+      </aside>
+    </main>
+    <footer>
+      <ul>
+        <li>credit</li>
+        <li>profile</li>
+        <li>about</li>
+        <li>feedback</li>
+      </ul>
+    </footer>
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+
 </html>

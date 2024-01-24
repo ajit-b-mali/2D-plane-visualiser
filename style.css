@@ -91,6 +91,7 @@ main .properties {
     min-width: 200px;
     background-color: #121212;
 }
+
 .properties {
     flex: 1;
     min-width: 250px;
@@ -105,6 +106,7 @@ main .properties {
     margin: 0 20px;
     padding: 10px;
 }
+
 .left-menu {
     background-color: #121212;
     min-width: 40px;
@@ -144,7 +146,7 @@ main .properties {
     background-color: #343434;
 }
 
-.tools li, 
+.tools li,
 .shortcuts li {
     display: grid;
     place-items: center;
@@ -156,6 +158,7 @@ main .properties {
     background-color: #ababab;
     color: #121212;
 }
+
 /***************************/
 
 /**********Footer*****************/
@@ -182,6 +185,7 @@ footer ul li {
 footer li:hover {
     color: white;
 }
+
 /***************************/
 /**************Miscellinas***/
 
@@ -215,6 +219,7 @@ img {
     padding: 0.25rem;
     font-family: 'Courier New', Courier, monospace;
 }
+
 #context-menu li:hover {
     background-color: bisque;
     color: #121212;
@@ -223,4 +228,18 @@ img {
 
 #context-menu h2 {
     margin: 0.5rem;
+}
+
+#shapeProp {
+    min-width: 200px;
+    align-self: stretch;
+    background-color: #121212;
+}
+
+#circleHtml,
+#rectangleHtml {
+    color: bisque;
+    display: grid;
+    align-content: start;
+    display: none;
 }

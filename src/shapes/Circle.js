@@ -17,8 +17,8 @@ export default class Circle {
 
     draw() {
         this.a.draw();
-        this.ctx.strokeStyle = 'white';
-        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+        this.ctx.strokeStyle = this.selected ? "crimson" : "white";
+        this.ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
         this.ctx.lineWidth = 2;
         this.ctx.beginPath();
         this.ctx.arc(this.a.fakeX, this.a.fakeY, this.fakeR, 0, 2 * Math.PI);
@@ -26,36 +26,36 @@ export default class Circle {
         this.ctx.stroke();
         this.ctx.fill();
 
-        if (this.selected) {
-            Util.drawLine(
-                this.ctx,
-                this.a.fakeX - this.fakeR,
-                this.a.fakeY - this.fakeR,
-                this.a.fakeX + this.fakeR,
-                this.a.fakeY - this.fakeR
-            );
-            Util.drawLine(
-                this.ctx,
-                this.a.fakeX - this.fakeR,
-                this.a.fakeY - this.fakeR,
-                this.a.fakeX - this.fakeR,
-                this.a.fakeY + this.fakeR
-            );
-            Util.drawLine(
-                this.ctx,
-                this.a.fakeX - this.fakeR,
-                this.a.fakeY + this.fakeR,
-                this.a.fakeX + this.fakeR,
-                this.a.fakeY + this.fakeR
-            );
-            Util.drawLine(
-                this.ctx,
-                this.a.fakeX + this.fakeR,
-                this.a.fakeY + this.fakeR,
-                this.a.fakeX + this.fakeR,
-                this.a.fakeY - this.fakeR
-            );
-        }
+        // if (this.selected) {
+        //     Util.drawLine(
+        //         this.ctx,
+        //         this.a.fakeX - this.fakeR,
+        //         this.a.fakeY - this.fakeR,
+        //         this.a.fakeX + this.fakeR,
+        //         this.a.fakeY - this.fakeR
+        //     );
+        //     Util.drawLine(
+        //         this.ctx,
+        //         this.a.fakeX - this.fakeR,
+        //         this.a.fakeY - this.fakeR,
+        //         this.a.fakeX - this.fakeR,
+        //         this.a.fakeY + this.fakeR
+        //     );
+        //     Util.drawLine(
+        //         this.ctx,
+        //         this.a.fakeX - this.fakeR,
+        //         this.a.fakeY + this.fakeR,
+        //         this.a.fakeX + this.fakeR,
+        //         this.a.fakeY + this.fakeR
+        //     );
+        //     Util.drawLine(
+        //         this.ctx,
+        //         this.a.fakeX + this.fakeR,
+        //         this.a.fakeY + this.fakeR,
+        //         this.a.fakeX + this.fakeR,
+        //         this.a.fakeY - this.fakeR
+        //     );
+        // }
     }
 
     updateSize(x, y) {
