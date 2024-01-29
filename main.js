@@ -24,14 +24,12 @@ canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
 
 window.addEventListener('resize', _ => {
-    canvas.width = canvas.width = canvas.clientWidth;
-    canvas.height = canvas.height = canvas.clientHeight;
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
     offset.update(0, 0);
 });
 
-const board = new Board(canvas);
-const offset = new Offset(canvas);
-const cursor = new Cursor(canvas);
+
 // Global variables--------------------------------
 function Unit(v) {
     return {
@@ -47,8 +45,13 @@ function Unit(v) {
         },
     }
 }
-
 const unit = Unit(100);
+
+const board = new Board(canvas);
+const cursor = new Cursor(canvas);
+const offset = new Offset(canvas);
+offset.update(0, 0);
+
 let SNAP = inputSnapSize.value;
 
 let shapes = [];
@@ -56,16 +59,16 @@ let shapes = [];
 // Default Functions--------------------------------
 function update(dt) {
     Util.reset(ctx, offset);
+    offset.update(0, 0);
     board.update(offset, unit.size);
+    cursor.update(dt);
     shapes.forEach(shape => {
         shape.update(dt, unit.size);
     });
-    cursor.update(dt);
 }
 
 function draw() {
     board.draw(offset, unit.size);
-
     shapes.forEach(shape => {
         shape.draw();
     });
@@ -91,14 +94,6 @@ function mainLoop(timeStamp) {
 requestAnimationFrame(mainLoop);
 
 // Events--------------------------------------------
-function pointCircle(px, py, cx, cy, cr) {
-    return cr ** 2 > (px - cx) ** 2 + (py - cy) ** 2;
-}
-
-// function pointRect(px, py, rx, ry, rw, rh) {
-//     return px < rx + rw && px > rx && py > ry && py < ry + rh;
-// }
-
 function updateValue(s) {
     let shape = { ...s };
     const el = document.getElementById("circleHtml");
@@ -122,23 +117,41 @@ function addCircleHtml(shape) {
     child.r.value = r;
 }
 
-// function addRectangleHtml(shape) {
-//     let { x, y, w, h } = shape;
-//     const el = document.getElementById("rectangleHtml");
-//     el.style.display = "grid";
-//     document.getElementById("circleHtml").style.display = "none";
-//     const child = el.children;
-//     child.x.value = x;
-//     child.y.value = y;
-//     child.w.value = w;
-//     child.h.value = h;
-// }
+function addRectangleHtml(shape) {
+    let { x, y, w, h } = shape;
+    const el = document.getElementById("rectangleHtml");
+    el.style.display = "grid";
+    document.getElementById("circleHtml").style.display = "none";
+    const child = el.children;
+    child.x.value = x;
+    child.y.value = y;
+    child.w.value = w;
+    child.h.value = h;
+}
 
 let x, y;
 let canMove = false;
 let clicked = false;
+let isDrawing = false;
 let drawManager = 'select';
 let tempShape = {};
+
+function pointCircle(px, py, cx, cy, cr) {
+    return cr ** 2 > (px - cx) ** 2 + (py - cy) ** 2;
+}
+
+function pointRect(px, py, rx, ry, rw, rh) {
+    return px < rx + rw && px > rx && py > ry && py < ry + rh;
+}
+
+function pointPoint() {
+    
+}
+
+function pointLine() {
+
+}
+
 let option = {
     line: (x, y) => new Line(ctx, x, y, x, y),
     circle: (x, y) => new Circle(ctx, x, y),
@@ -154,35 +167,67 @@ canvas.addEventListener('mousedown', e => {
         e.preventDefault();
     }
 
-    // promary button
+    // primary button
     if (e.button == 0) {
         x = e.offsetX - offset.x;
         y = e.offsetY - offset.y;
         [x, y] = Util.snapXY(x, y, unit.size, SNAP);
-        if (drawManager != "select") {
-            let a = option[drawManager];
-            tempShape = a(x, y);
-            tempShape.selected = true;
-            shapes.push(tempShape);
-        } else {
-            for (const shape of shapes) {
-                shape.selected = false;
-            }
-            for (const shape of shapes) {
-                console.log(x, y, shape.a.x, shape.a.y, shape.r);
-                if (pointCircle(x, y, shape.a.x, shape.a.y, shape.r)) {
-                    shape.selected = true;
-                    addCircleHtml(shape);
-                    break;
+        switch (drawManager) {
+            case "select":
+                for (const shape of shapes) {
+                        shape.selected = false;
                 }
-                // if (pointRect(x, y, shape.x, shape.y, shape?.w, shape?.h)) {
-                //     shape.selected = true;
-                //     addRectangleHtml(shape);
-                //     // break;
-                // }
-            }
+                for (const shape of shapes) {
+                    if (pointCircle(x, y, shape.a.x, shape.a.y, shape.r)) {
+                        shape.selected = true;
+                        addCircleHtml(shape);
+                        break;
+                    }
+                    if (pointRect(x, y, shape.a.x, shape.a.y, shape.w, shape.h)) {
+                        shape.selected = true;
+                        console.log("askdjflaksjdf");
+                        addRectangleHtml(shape);
+                        break;
+                    }
+                }
+                break;
+            
+            case "point":
+                shapes.push(new Point(ctx, x, y));
+                isDrawing = true;
+                break;
+            
+            case "line":
+                shapes.push(new Line(ctx, x, y, x + 1, y));
+                isDrawing = true;
+                break;
+            
+            case "circle":
+                isDrawing = true;
+                shapes.push(new Circle(ctx, x, y));
+                break;
+            
+            case "ellipse":
+                shapes.push(new Ellipse(ctx, x, y));
+                isDrawing = true;
+                break;
+            
+            case "rect":
+                shapes.push(new Rect(ctx, x, y));
+                isDrawing = true;
+                break;
+            
+            case "square":
+                shapes.push(new Square(ctx, x, y));
+                isDrawing = true;
+                break;
         }
-
+        // if (drawManager != "select") {
+        //     let a = option[drawManager];
+        //     tempShape = a(x, y);
+        //     tempShape.selected = true;
+        //     shapes.push(tempShape);
+        // }
         clicked = true;
     }
 });
@@ -195,16 +240,13 @@ canvas.addEventListener('mousemove', e => {
     let y = e.offsetY - offset.y;
     [x, y] = Util.snapXY(x, y, unit.size, SNAP);
     cursor.setPos(x, y);
-    // if (drawManager != "select" && clicked && drawManager != "point" && (tempShape.a.x != x || tempShape.a.y != y)) {
-    //     tempShape.updateSize(x, y);
-    // }
-    for (const shape of shapes) {
-        if (shape.selected && drawManager != "select" && clicked && drawManager != "point" && (tempShape.a.x != x || tempShape.a.y != y)) {
-            shape.updateSize(x, y);
-        }
-    }
-    // if (tempShape) {
-    //     tempShape.updateSize(x, y);
+    if (isDrawing && (shapes.at(-1).a.x != x || shapes.at(-1).a.y != y)) {
+        shapes.at(-1).updateSize(x, y);
+    }    
+    // for (const shape of shapes) {
+    //     if (shape.selected && drawManager != "select" && clicked && drawManager != "point" && (tempShape.a.x != x || tempShape.a.y != y)) {
+    //         shape.updateSize(x, y);
+    //     }
     // }
 });
 
@@ -212,8 +254,7 @@ window.addEventListener('mouseup', e => {
     canMove = false;
     if (e.button == 0) {
         clicked = false;
-        tempShape = null;
-        drawManager = "select";
+        isDrawing = false;
     }
 });
 
@@ -315,7 +356,7 @@ function updateCirclevalue() {
             if (this.id == "r")
                 shape.r = this.value;
             else
-                shape.a[this.id] = this.value;                
+                shape.a[this.id] = this.value;
         }
     });
 }
@@ -331,9 +372,9 @@ function updateCirclevalue() {
 
 let el = document.getElementById("circleHtml");
 let child = el.children;
-child.x.addEventListener("change", updateCirclevalue);
-child.y.addEventListener("change", updateCirclevalue);
-child.r.addEventListener("change", updateCirclevalue);
+child.x.addEventListener("input", updateCirclevalue);
+child.y.addEventListener("input", updateCirclevalue);
+child.r.addEventListener("input", updateCirclevalue);
 
 // el = document.getElementById("rectangleHtml");
 // child = el.children;

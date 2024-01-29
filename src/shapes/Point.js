@@ -1,10 +1,11 @@
 export default class Point {
-    constructor(ctx, x, y) {
+    constructor(ctx, x = 0, y = 0) {
         this.ctx = ctx;
         this.setPos(x, y);
         this.fakeX;
         this.fakeY;
         this.r = 3;
+        this.name = "point";
     }
 
     update(dt, unitsize) {

@@ -2,12 +2,13 @@ import { snapXY } from "../Util.js";
 import Point from "./Point.js";
 
 export default class Rect {
-    constructor(ctx, x, y) {
+    constructor(ctx, x = 0, y = 1) {
         this.ctx = ctx;
         this.a = new Point(ctx, x, y);
-        this.b = new Point(ctx, x + 1, y);
-        this.c = new Point(ctx, x + 1, y - 1);
+        this.b = new Point(ctx, x + 2, y);
+        this.c = new Point(ctx, x + 2, y - 1);
         this.d = new Point(ctx, x, y - 1);
+        this.name = "rect";
     }
 
     update(dt, unitsize) {
@@ -17,6 +18,8 @@ export default class Rect {
         this.d.update(dt, unitsize);
         this.ab = Math.abs(this.a.x - this.b.x);
         this.ad = Math.abs(this.a.y - this.d.y);
+        this.w = -1;
+        this.h = -1;
     }
 
     draw() {

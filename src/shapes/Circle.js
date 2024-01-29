@@ -1,13 +1,13 @@
 import Point from "./Point.js";
 import * as Util from "../Util.js";
 export default class Circle {
-    constructor(ctx, x, y) {
+    constructor(ctx, x = 0, y = 0) {
         this.ctx = ctx;
         this.a = new Point(ctx, x, y);
         this.r = 1;
         this.color = Math.random() * 360;
         this.selected = false;
-        this.type = "circle";
+        this.name = "circle";
     }
 
     update(dt, unitsize) {

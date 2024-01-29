@@ -2,12 +2,15 @@ import { findDist } from "../Util.js";
 import Point from "./Point.js";
 
 export default class Square {
-    constructor(ctx, x, y) {
+    constructor(ctx, x = 0, y = 1) {
         this.ctx = ctx;
         this.a = new Point(ctx, x, y);
         this.b = new Point(ctx, x + 1, y);
         this.c = new Point(ctx, x + 1, y - 1);
         this.d = new Point(ctx, x, y - 1);
+        this.w = -1;
+        this.h = -1;
+        this.name = "square";
     }
 
     update(dt, unitsize) {
