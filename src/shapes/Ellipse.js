@@ -2,11 +2,12 @@ import { ellipsePath } from "../Util.js";
 import Point from "./Point.js";
 
 export default class Ellipse {
-    constructor(ctx, x, y) {
+    constructor(ctx, x = 0, y = 0) {
         this.ctx = ctx;
         this.a = new Point(ctx, x, y);
         this.dx = 1;
         this.dy = 0.5;
+        this.name = "ellipse";
     }
 
     update(dt, unitsize) {

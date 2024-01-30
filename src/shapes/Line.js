@@ -2,10 +2,11 @@ import Point from "./Point.js";
 import * as Util from "../Util.js";
 
 export default class Line {
-    constructor(ctx, x1, y1, x2, y2) {
+    constructor(ctx, x1 = 0, y1 = 0, x2 = 1, y2 = 0) {
         this.ctx = ctx;
         this.a = new Point(this.ctx, x1, y1);
-        this.b = new Point(this.ctx, x2 + 0.1, y2);        
+        this.b = new Point(this.ctx, x2, y2);
+        this.name = "line";
     }
 
     update(dt, unitsize) {

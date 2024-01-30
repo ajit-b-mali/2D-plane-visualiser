@@ -23,9 +23,13 @@ const tools = document.querySelector('.tools');
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
 
-const board = new Board(canvas);
-const offset = new Offset(canvas);
-const cursor = new Cursor(canvas);
+window.addEventListener('resize', _ => {
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    offset.update(0, 0);
+});
+
+
 // Global variables--------------------------------
 function Unit(v) {
     return {
@@ -41,30 +45,30 @@ function Unit(v) {
         },
     }
 }
-
 const unit = Unit(100);
+
+const board = new Board(canvas);
+const cursor = new Cursor(canvas);
+const offset = new Offset(canvas);
+offset.update(0, 0);
+
 let SNAP = inputSnapSize.value;
 
 let shapes = [];
 
-function pointCircle(px, py, cx, cy, cr) {
-    return (px - cx) ** 2 + (py - cy) ** 2 < cr ** 2;
-}
-
 // Default Functions--------------------------------
 function update(dt) {
     Util.reset(ctx, offset);
+    offset.update(0, 0);
     board.update(offset, unit.size);
-
+    cursor.update(dt);
     shapes.forEach(shape => {
         shape.update(dt, unit.size);
     });
-    cursor.update(dt);
 }
 
 function draw() {
     board.draw(offset, unit.size);
-
     shapes.forEach(shape => {
         shape.draw();
     });
@@ -90,11 +94,64 @@ function mainLoop(timeStamp) {
 requestAnimationFrame(mainLoop);
 
 // Events--------------------------------------------
+function updateValue(s) {
+    let shape = { ...s };
+    const el = document.getElementById("circleHtml");
+    const child = el.children;
+    child.x.addEventListener("change", (e) => {
+        shape.x = e.target.value;
+        console.log(shape);
+    });
+    return shape;
+}
+
+function addCircleHtml(shape) {
+    let { a, r } = shape;
+    let { x, y } = a;
+    document.getElementById("rectangleHtml").style.display = "none";
+    const el = document.getElementById("circleHtml");
+    el.style.display = "grid";
+    const child = el.children;
+    child.x.value = x;
+    child.y.value = y;
+    child.r.value = r;
+}
+
+function addRectangleHtml(shape) {
+    let { x, y, w, h } = shape;
+    const el = document.getElementById("rectangleHtml");
+    el.style.display = "grid";
+    document.getElementById("circleHtml").style.display = "none";
+    const child = el.children;
+    child.x.value = x;
+    child.y.value = y;
+    child.w.value = w;
+    child.h.value = h;
+}
+
 let x, y;
 let canMove = false;
 let clicked = false;
-let create = 'select';
-let selected;
+let isDrawing = false;
+let drawManager = 'select';
+let tempShape = {};
+
+function pointCircle(px, py, cx, cy, cr) {
+    return cr ** 2 > (px - cx) ** 2 + (py - cy) ** 2;
+}
+
+function pointRect(px, py, rx, ry, rw, rh) {
+    return px < rx + rw && px > rx && py > ry && py < ry + rh;
+}
+
+function pointPoint() {
+    
+}
+
+function pointLine() {
+
+}
+
 let option = {
     line: (x, y) => new Line(ctx, x, y, x, y),
     circle: (x, y) => new Circle(ctx, x, y),
@@ -104,29 +161,72 @@ let option = {
     square: (x, y) => new Square(ctx, x, y),
 }
 canvas.addEventListener('mousedown', e => {
+    // middle button canvas movement
     if (e.button == 1) {
         canMove = true;
         e.preventDefault();
     }
+
+    // primary button
     if (e.button == 0) {
         x = e.offsetX - offset.x;
         y = e.offsetY - offset.y;
         [x, y] = Util.snapXY(x, y, unit.size, SNAP);
-        if (create != "select") {
-            let a = option[create];
-            selected = a(x, y);
-            shapes.push(selected);
-        } 
-        // else {
-        //     shapes.forEach(shape => {
-        //         shape.selected = false;
-        //         x = e.offsetX - offset.x;
-        //         y = e.offsetY - offset.y;
-        //         if (shape.type = "circle" && pointCircle(x, y, shape.a.fakeX, shape.a.fakeY, shape.fakeR)) {
-        //             shape.selected = true;
-        //             selected = shape;
-        //         }
-        //     })
+        switch (drawManager) {
+            case "select":
+                for (const shape of shapes) {
+                        shape.selected = false;
+                }
+                for (const shape of shapes) {
+                    if (pointCircle(x, y, shape.a.x, shape.a.y, shape.r)) {
+                        shape.selected = true;
+                        addCircleHtml(shape);
+                        break;
+                    }
+                    if (pointRect(x, y, shape.a.x, shape.a.y, shape.w, shape.h)) {
+                        shape.selected = true;
+                        console.log("askdjflaksjdf");
+                        addRectangleHtml(shape);
+                        break;
+                    }
+                }
+                break;
+            
+            case "point":
+                shapes.push(new Point(ctx, x, y));
+                isDrawing = true;
+                break;
+            
+            case "line":
+                shapes.push(new Line(ctx, x, y, x + 1, y));
+                isDrawing = true;
+                break;
+            
+            case "circle":
+                isDrawing = true;
+                shapes.push(new Circle(ctx, x, y));
+                break;
+            
+            case "ellipse":
+                shapes.push(new Ellipse(ctx, x, y));
+                isDrawing = true;
+                break;
+            
+            case "rect":
+                shapes.push(new Rect(ctx, x, y));
+                isDrawing = true;
+                break;
+            
+            case "square":
+                shapes.push(new Square(ctx, x, y));
+                isDrawing = true;
+                break;
+        }
+        // if (drawManager != "select") {
+        //     let a = option[drawManager];
+        //     tempShape = a(x, y);
+        //     tempShape.selected = true;
+        //     shapes.push(tempShape);
         // }
         clicked = true;
     }
@@ -140,19 +240,21 @@ canvas.addEventListener('mousemove', e => {
     let y = e.offsetY - offset.y;
     [x, y] = Util.snapXY(x, y, unit.size, SNAP);
     cursor.setPos(x, y);
-    if (create != "select" && clicked && create != "point" && (selected.a.x != x || selected.a.y != y)) {
-        selected.updateSize(x, y);
-    }
-    if (selected) {
-        selected.updateSize(x, y);
-    }
+    if (isDrawing && (shapes.at(-1).a.x != x || shapes.at(-1).a.y != y)) {
+        shapes.at(-1).updateSize(x, y);
+    }    
+    // for (const shape of shapes) {
+    //     if (shape.selected && drawManager != "select" && clicked && drawManager != "point" && (tempShape.a.x != x || tempShape.a.y != y)) {
+    //         shape.updateSize(x, y);
+    //     }
+    // }
 });
 
 window.addEventListener('mouseup', e => {
     canMove = false;
     if (e.button == 0) {
         clicked = false;
-        selected = null;
+        isDrawing = false;
     }
 });
 
@@ -162,7 +264,7 @@ canvas.addEventListener('mouseleave', e => {
 
 window.addEventListener('wheel', e => {
     e.preventDefault();
-}, {passive: false});
+}, { passive: false });
 
 canvas.addEventListener('wheel', e => {
     let zoomSpeed = (unit.size >= 70) ? 20 : 50;
@@ -197,21 +299,15 @@ window.addEventListener('keydown', e => {
     }
 }, { passive: false });
 
-window.addEventListener('resize', _ => {
-    canvas.width = canvas.width = canvas.clientWidth;
-    canvas.height = canvas.height = canvas.clientHeight;
-    offset.update(0, 0);
-});
-
 inputSnapSize.addEventListener('change', e => {
     SNAP = e.target.value;
 });
 
 tools.addEventListener('click', (e) => {
-    create = e.target.dataset.tool;
+    drawManager = e.target.dataset.tool;
     let toolList = tools.children;
     for (const tool of toolList) {
-        if(create == tool.dataset.tool) {
+        if (drawManager == tool.dataset.tool) {
             tool.style.backgroundColor = 'black';
             tool.style.color = 'white';
         } else {
@@ -221,6 +317,68 @@ tools.addEventListener('click', (e) => {
     }
 });
 
-// shapeSelector.addEventListener('change', e => {
-//     create = e.target.value;
-// });
+function contextMenuManage() {
+    const contextMenu = document.getElementById('context-menu');
+
+    return {
+        showOption: (x, y) => {
+            if (contextMenu.clientHeight + y > window.innerHeight) {
+                y -= contextMenu.clientHeight;
+            }
+            if (contextMenu.clientWidth + x > window.innerWidth) {
+                x -= contextMenu.clientWidth;
+            }
+            contextMenu.style.left = `${x}px`;
+            contextMenu.style.top = `${y}px`;
+            contextMenu.style.visibility = "visible";
+        },
+        hideOption: () => {
+            contextMenu.style.visibility = "hidden";
+        }
+    }
+}
+
+const contextMenu = new contextMenuManage;
+
+window.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    let x = e.clientX;
+    let y = e.clientY;
+    contextMenu.showOption(x, y);
+}, { passive: false });
+
+window.addEventListener('click', contextMenu.hideOption)
+
+
+function updateCirclevalue() {
+    shapes.forEach((shape) => {
+        if (shape.selected) {
+            if (this.id == "r")
+                shape.r = this.value;
+            else
+                shape.a[this.id] = this.value;
+        }
+    });
+}
+
+// function updateRectanglevalue() {
+//     shapes.forEach((shape) => {
+//         if (shape.selected) {
+//             shape[this.id] = this.value;
+//         }
+//     });
+// }
+
+
+let el = document.getElementById("circleHtml");
+let child = el.children;
+child.x.addEventListener("input", updateCirclevalue);
+child.y.addEventListener("input", updateCirclevalue);
+child.r.addEventListener("input", updateCirclevalue);
+
+// el = document.getElementById("rectangleHtml");
+// child = el.children;
+// child.x.addEventListener("change", updateRectanglevalue);
+// child.y.addEventListener("change", updateRectanglevalue);
+// child.w.addEventListener("change", updateRectanglevalue);
+// child.h.addEventListener("change", updateRectanglevalue);

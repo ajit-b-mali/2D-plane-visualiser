@@ -91,6 +91,7 @@ main .properties {
     min-width: 200px;
     background-color: #121212;
 }
+
 .properties {
     flex: 1;
     min-width: 250px;
@@ -105,6 +106,7 @@ main .properties {
     margin: 0 20px;
     padding: 10px;
 }
+
 .left-menu {
     background-color: #121212;
     min-width: 40px;
@@ -144,7 +146,7 @@ main .properties {
     background-color: #343434;
 }
 
-.tools li, 
+.tools li,
 .shortcuts li {
     display: grid;
     place-items: center;
@@ -156,6 +158,7 @@ main .properties {
     background-color: #ababab;
     color: #121212;
 }
+
 /***************************/
 
 /**********Footer*****************/
@@ -182,6 +185,7 @@ footer ul li {
 footer li:hover {
     color: white;
 }
+
 /***************************/
 /**************Miscellinas***/
 
@@ -193,4 +197,49 @@ footer li:hover {
 img {
     max-width: 100%;
     display: block;
+    pointer-events: none;
+}
+
+#context-menu {
+    display: grid;
+    visibility: hidden;
+    position: absolute;
+    z-index: 100;
+    padding-block: 1rem;
+    background-color: #121212;
+    color: bisque;
+    outline: 2px solid #343434;
+    list-style: none;
+    gap: 0.5rem;
+}
+
+#context-menu li {
+    border: 1px solid #343434;
+    background-color: #232323;
+    padding: 0.25rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#context-menu li:hover {
+    background-color: bisque;
+    color: #121212;
+    font-weight: 700;
+}
+
+#context-menu h2 {
+    margin: 0.5rem;
+}
+
+#shapeProp {
+    min-width: 200px;
+    align-self: stretch;
+    background-color: #121212;
+}
+
+#circleHtml,
+#rectangleHtml {
+    color: bisque;
+    display: grid;
+    align-content: start;
+    display: none;
 }
