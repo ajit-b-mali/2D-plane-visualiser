@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>button</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #121212;
+            display: grid;
+            place-items: center;
+            height: 100svh;
+            overflow: clip;
+        }
+
+        a {
+            outline: 2px solid bisque;
+            width: max-content;
+            height: max-content;
+            border-radius: 10rem;
+            padding-inline: 2rem;
+            padding-block: 1rem;
+            text-decoration: none;
+            position: relative;
+            overflow: clip;
+            background-color: transparent;
+        }
+        
+        /* a::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background-color: bisque;
+            position: absolute;
+            scale: 0;
+        }
+        a:hover::after {
+            scale: 2;
+        } */
+        .text {
+            color: bisque;
+            mix-blend-mode: difference;
+            font-size: 2rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bolder;
+        }
+        .bg {
+            width: 150%;
+            /* height: 160%; */
+            aspect-ratio: 1 / 1;
+            border-radius: 1000px;
+            background-color: bisque;
+            mix-blend-mode: difference;
+            position: absolute;
+            scale: 0;
+            pointer-events: none;
+            transition: scale .2s ease-in-out;
+        } 
+        a:hover .bg {
+            scale: 1;
+            transition: scale .3s ease-in;
+        }
+        .cursor {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 1000px;
+            background-color: bisque;
+            mix-blend-mode: difference;
+            position: absolute;
+            left: -100px;
+            top: -100px;
+            z-index: 10;
+            pointer-events: none;
+            scale: 1;
+            transition: scale 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+        </style>
+</head>
+<body>
+    <a href="#">
+        <span class="bg"></span>
+        <span class="text">Hello, World!</span>
+    </a>
+    <div class="cursor"></div>
+    <script>
+        const cursor = document.querySelector(".cursor");
+        const a = document.querySelector("a");
+        const bg = document.querySelector(".bg");
+        window.addEventListener('mousemove', e => {
+            cursor.style.left = `${e.pageX - cursor.clientWidth / 2}px`;
+            cursor.style.top = `${e.pageY - cursor.clientHeight / 2}px`;
+            cursor.animate({
+                left: `${e.pageX - cursor.clientWidth / 2}px`,
+                top: `${e.pageY - cursor.clientHeight / 2}px`,
+            }, 250)
+        });
+
+        a.addEventListener('mousemove', e => {
+            const offset = a.getBoundingClientRect();
+            bg.style.left = `${e.pageX - offset.x - bg.clientWidth / 2}px`;
+            bg.style.top = `${e.pageY - offset.y - bg.clientHeight / 2}px`;
+        });
+    </script>
+</body>
+</html>
