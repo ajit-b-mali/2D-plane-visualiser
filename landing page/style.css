@@ -1,0 +1,147 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding-inline: 1.5rem;
+    padding-block: 0.5rem;
+    font-size: 1.2rem;
+    color: bisque;
+    text-decoration: none;
+
+}
+
+html {
+    color: bisque;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    color: bisque;
+}
+
+body {
+    background-color: #121212;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    padding-inline: 2rem;
+    backdrop-filter: blur(20px);
+    position: fixed;
+    top: 0;
+    width: 100svw;
+    font-size: 1.5rem;
+}
+
+nav button {
+    margin-left: auto;
+    min-width: max-content;
+    min-height: max-content;
+    display: grid;
+    place-items: center;
+    color: bisque;
+    background-color: transparent;
+    border: 2px solid;
+    border-radius: 1000px;
+    align-self: center;
+    position: relative;
+    overflow: clip;
+}
+
+nav .menus {
+    display: flex;
+    padding-block: 1rem;
+    gap: 2rem;
+    list-style: none;
+
+}
+
+header {
+    display: grid;
+    place-items: center;
+    min-height: 100svh;
+}
+
+h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 7rem;
+    width: max-content;
+    background-image: linear-gradient(10deg, orangered, blue);
+    background-clip: text;
+    color: transparent;
+    padding-inline: 1rem;
+}
+
+.down-arrow {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 87svh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3rem;
+    aspect-ratio: 1 / 1;
+    background-color: #232323;
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-radius: 50%;
+    box-shadow: 0 4px 0 -2px bisque;
+    user-select: none;
+    background-image: url("downArrow.png");
+    animation: up-down 2s infinite steps(1);
+}
+
+.down-arrow:active {
+    box-shadow: none;
+    transform: translate(-50%, 2px);
+    animation: unset;
+}
+
+main {
+    font-size: 2rem;
+}
+
+.wrapper {
+    max-width: 80svw;
+    margin-inline: auto;
+}
+
+section {
+    background-color: #121212;
+    min-height: 110svh;
+    padding-top: 4rem;
+}
+
+.hero {
+    font-size: 3rem;
+    padding: 2rem;
+    display: grid;
+    place-items: center;
+    outline: 2px solid limegreen;
+}
+
+.hero > * {
+    outline: 2px solid limegreen;
+}
+
+.hero p {
+    text-align: center;
+}
+
+@keyframes up-down {
+
+    0%,
+    100% {
+        background-position: 50% 40%;
+    }
+
+    50% {
+        background-position: 50% 70%;
+    }
+}
