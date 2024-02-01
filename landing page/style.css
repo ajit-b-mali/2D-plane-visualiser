@@ -36,6 +36,7 @@ nav {
     top: 0;
     width: 100svw;
     font-size: 1.5rem;
+    z-index: 100;
 }
 
 nav button {
@@ -108,7 +109,6 @@ main {
 }
 
 .wrapper {
-    max-width: 80svw;
     margin-inline: auto;
 }
 
@@ -116,24 +116,129 @@ section {
     background-color: #121212;
     min-height: 110svh;
     padding-top: 4rem;
+    position: relative;
 }
 
 .hero {
-    font-size: 3rem;
-    padding: 2rem;
-    display: grid;
+    width: 100%;
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
     place-items: center;
-    outline: 2px solid limegreen;
+    border-spacing: border-box;
+    background-color: #232323;
 }
 
-.hero > * {
-    outline: 2px solid limegreen;
+.content{
+    width: 50%;
+    padding-bottom: 8%;
 }
 
 .hero p {
-    text-align: center;
+    display: inline-block;
+    text-align: left;
+    width: fit-content;
+    height: min-content;
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    background-image: linear-gradient(white, white);
+    background-repeat: no-repeat;
+    background-size: 0 0;
+    background-clip: text;
+    transition: background-size .25s ease-out;
 }
 
+.hero p:hover {
+    background-size: 100% 100%;
+}
+
+.title {
+    color: transparent;
+    background-image: linear-gradient(10deg, crimson, blue);
+    background-clip: text;
+}
+
+.image-container{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-right: 50px;
+}
+
+.image-container img {
+    width: 200px;
+}
+
+.image-container img:nth-child(2n) {
+    margin-left: auto;
+    transform: rotateZ(30deg);
+}
+.image-container img:nth-child(2n-1) {
+    margin-right: auto;
+    transform: rotateZ(-30deg);
+}
+
+.tools{
+    display: flex;
+    justify-content: space-between;
+    padding: 180px;
+    gap: 10rem;
+}
+
+h2{
+    color: aqua;
+}
+
+.tool-card1{
+    background-color:coral;
+    
+}
+
+.tool-card1 p {
+    font-size: 20px;
+}
+.tool-card2 p {
+    font-size: 20px;
+}
+
+.cta-btn {
+    outline: 2px solid beige;
+    width: max-content;
+    height: max-content;
+    padding-inline: 2rem;
+    padding-block: 1rem;
+    text-decoration: none;
+    position: relative;
+    overflow: clip;
+    background-color: transparent;
+    position: absolute;
+    bottom: 150px;
+    left: 15%;
+}
+
+.text {
+    color: white;
+    mix-blend-mode: difference;
+    font-size: 2rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+}
+.bg {
+    width: 160%;
+    scale: 0;
+    aspect-ratio: 1 / 1;
+    border-radius: 1000px;
+    background-color: bisque;
+    mix-blend-mode: difference;
+    position: absolute;
+    pointer-events: none;
+    transition: scale .2s ease-in-out;
+} 
+.cta-btn:hover .bg {
+    scale: 1;
+    transition: scale .3s ease-in;
+}
 @keyframes up-down {
 
     0%,
