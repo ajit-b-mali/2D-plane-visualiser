@@ -9,19 +9,60 @@
 </head>
 
 <body>
-    <main>
-        <div id="item-table">
-        </div>
-        <div id="options">
-            <button class="btn">add item</button>
-            <button class="btn" onclick="createChart()">create chart</button>
-            <button class="btn" onclick="download()">download</button>
-
-        </div>
-        <div class="canvas-container">
-            <canvas id="canvas" aria - label="Hello ARIA World" role = "img"></canvas>
-        </div>
-    </main>
+    <div class="wrapper">
+        <header>
+            <div class="appName">
+                <h1>Visualiser.io</h1>
+            </div>
+            <menu type="context" class="menu">
+                <ul>
+                    <li>file</li>
+                    <li>setting</li>
+                    <li>new</li>
+                    <li>help</li>
+                </ul>
+                <div class="user">
+                    <h2>user name</h2>
+                </div>
+            </menu>
+        </header>
+        <main>
+            <div class="canvas-wrapper">
+                <canvas id="canvas" width="400" role="img"></canvas>
+            </div>
+            <aside class="property">
+                <select class="chart-type" aria-placeholder="alskdflasdf">
+                    <option value="bar" selected>Bar Chart</option>
+                    <option value="line">Line Chart</option>
+                    <option value="bar">Bar Chart</option>
+                    <option value="line">Line Chart</option>
+                    <option value="bar">Bar Chart</option>
+                    <option value="line">Line Chart</option>
+                </select>
+                <button class="btn">update item</button>
+                <button class="btn" onclick="createChart()">create chart</button>
+                <button class="btn" onclick="download()">download</button>
+            </aside>
+            <div class="pop-up">
+                <div class="pop-up-options">
+                    <button id="upload" class="opt-btn">📂</button>
+                    <button id="apply" class="opt-btn">💾</button>
+                    <button id="add" class="opt-btn" onclick="addInputFieldToList(dataList.length + 1)">➕</button>
+                    <button id="close" class="opt-btn">➖</button>
+                </div>
+                <div id="item-table"></div>
+            </div>
+        </main>
+        <footer>
+            <ul>
+                <li>ajit</li>
+                <li>rohit</li>
+                <li>bhaskar</li>
+                <li>harsh</li>
+                <li>prachi</li>
+            </ul>
+        </footer>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     </script>
     <script src="main.js"></script>

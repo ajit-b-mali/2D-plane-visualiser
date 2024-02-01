@@ -3,20 +3,7 @@ const itemGroupEl = document.getElementById('item-table');
 let isAdding = false;
 let chart;
 
-const dataList = [
-    {
-        label: "asdf",
-        value: 50,
-    },
-    {
-        label: "qwert",
-        value: 60,
-    },
-    {
-        label: "zxcv",
-        value: 40,
-    },
-];
+const dataList = [];
 
 function addItemElToList({ label, value }, index) {
     const dataContainer = document.createElement("div");
@@ -26,7 +13,6 @@ function addItemElToList({ label, value }, index) {
     <li>${value}</li>
     <li>
     <button class="check-btn" onclick="removeItem(${index - 1})">❌</button>
-    <button class="check-btn">🖋</button>
     </li>
     `;
     itemGroupEl.appendChild(dataContainer);
@@ -79,7 +65,7 @@ function createChart() {
     
     const canvas = document.getElementById("canvas");
     chart?.destroy();
-    chart = new Chart(document.getElementById("canvas") , {
+    chart = new Chart(canvas, {
         type: "bar",
         data: {
             labels: xValues,
@@ -98,17 +84,6 @@ function createChart() {
             }
         }
     });
-    // const img = new Image();
-    // img.src = chart.toBase64Image()
-    // const anchorEl = document.createElement("a");
-    // anchorEl.href = chart.toBase64Image();
-    // anchorEl.download = "imaage.png"
-    // document.body.appendChild(anchorEl);
-    // anchorEl.click();
-    // const anchorEl = document.createElement("a");
-    // anchorEl.download = "canvas.png";
-    // anchorEl.href = canvas.toDataURL('image/png', 1);
-    // anchorEl.click();
 }
 
 function init() {
@@ -117,7 +92,7 @@ function init() {
 
 document.addEventListener("DOMContentLoaded", init);
 
-document.querySelector("#options > .btn").addEventListener("click", (event) => {
+document.querySelector(".btn").addEventListener("click", (event) => {
     if (isAdding) return;
     addInputFieldToList(dataList.length + 1);
 });
@@ -127,8 +102,39 @@ function download() {
     const canvas = document.getElementById("canvas");
     imageLink.href = canvas.toDataURL('image/png', 1);
     imageLink.download = "canvas.png";
-    // document.write('<img src=" ' + imageLink + ' "/>')
-    // console.log(imageLink.href)
     imageLink.click();
 
 }
+
+document.querySelector("#close").addEventListener("mousedown", e => {
+    if (e.button == 0)
+        document.querySelector(".pop-up").style.display = "none";
+});
+
+function clamp(value, min, max) {
+    if (value < min)
+        return min
+    if (value > max)
+        return max
+    return value
+}
+
+let move = false;
+document.querySelector(".pop-up-options").addEventListener("mousedown", e => {
+    if (e.target == document.querySelector(".pop-up-options"))
+        move = true;
+});
+addEventListener("mousemove", e => {
+    const popUp = document.querySelector(".pop-up");
+    if (move) {
+        let pos = popUp.getBoundingClientRect();
+        let x = clamp(pos.x + e.movementX + pos.width / 2, pos.width / 2, window.innerWidth - pos.width / 2);
+        let y = clamp(pos.y + e.movementY + pos.height / 2, pos.height / 2, window.innerHeight - pos.height / 2);
+        popUp.style.left = `${x}px`;
+        popUp.style.top = `${y}px`;
+    }
+});
+
+addEventListener("mouseup", _ => {
+    move = false;
+});
