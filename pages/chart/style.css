@@ -61,7 +61,6 @@ header li:hover {
     color: white;
 }
 
-
 main {
     flex: 1;
     background: #343434;
@@ -139,7 +138,7 @@ canvas {
 }
 
 #item-table {
-    max-height: 80vh;
+    max-height: 500px;
     overflow: auto;
 }
 
@@ -176,7 +175,7 @@ canvas {
     }
 }
 
-li {
+#item-table div li {
     border-right: 1px solid black;
     list-style: none;
     padding-block: 0.5rem;
@@ -186,19 +185,19 @@ li {
     font-size: 1.25rem;
 }
 
-li:nth-child(1) {
+#item-table div li:nth-child(1) {
     width: 70px;
 }
 
-li:nth-child(2) {
+#item-table div li:nth-child(2) {
     flex: 1;
 }
 
-li:nth-child(3) {
+#item-table div li:nth-child(3) {
     width: 150px;
 }
 
-li:nth-child(4) {
+#item-table div :nth-child(4) {
     width: 90px;
     border: none;
     gap: 0.5rem;
@@ -218,6 +217,17 @@ li:nth-child(4) {
 
 .check-btn:hover:not(:active) {
     background-color: #dfdfdf;
+}
+
+.opt-btn {
+    width: 1.5rem;
+    height: 1.5rem;
+    aspect-ratio: 1 / 1;
+    font-size: 0.8rem;
+}
+
+.opt-btn:nth-child(2) {
+    font-size: 1rem;
 }
 
 footer {

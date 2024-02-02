@@ -4,7 +4,27 @@ const itemGroupEl = document.getElementById('item-table');
 let isAdding = false;
 let chart;
 
-let dataList = [];
+let dataList = [
+    {
+        label: 'Red',
+        value: 12,
+    }, {
+        label: 'Blue',
+        value: 19,
+    }, {
+        label: 'Yellow',
+        value: 3,
+    }, {
+        label: 'Green',
+        value: 5,
+    }, {
+        label: 'Purple',  
+        value: 2,
+    }, {
+        lable: 'Orange',
+        value: 7,
+    }
+];
 
 function addItemElToList({ label, value }, index) {
     const dataContainer = document.createElement("div");
@@ -58,60 +78,58 @@ function removeItem(index) {
     itemListElUpdate();
 }
 
-function createChart() {
+function createChart({ colors, chartType = "bar" }) {
     var xValues = dataList.map(data => data.label);
     var yValues = dataList.map(data => parseInt(data.value));
-    var barColors = dataList.map(_ => `hsl(${Math.random() * 360}, 100%, 50%)`);
-
     chart?.destroy();
     chart = new Chart(canvas, {
-        type: "bar",
+        type: chartType,
         data: {
             labels: xValues,
             datasets: [{
-                // backgroundColor: barColors,
+                backgroundColor: colors,
                 data: yValues,
-                borderWidth: 2,
+                borderWidth: 1,
             }]
         },
         options: {
             scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+                y:{
+                    beginAtZero: true
+                }
             }
         }
     });
 }
 
+document.getElementById("chart-type").addEventListener("change", e => {
+    createChart({ chartType: e.target.value });
+});
+
+function clearAllData() {
+    dataList = [];
+    itemListElUpdate();
+}
+
 function init() {
+    // createChart({
+    //     // colors: ["red", "blue", "yellow", "green", "purple", "orange"]
+    // });
+    var xValues = dataList.map(data => data.label);
+    var yValues = dataList.map(data => parseInt(data.value));
     chart = new Chart(canvas, {
-        type: 'bar',
+        type: "bar",
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: xValues,
             datasets: [{
-                label: 'something',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
+                data: yValues,
+                borderWidth: 1,
             }, {
-                label: 'another something',
-                data: [3, 2, 5, 3, 19, 12],
-                borderWidth: 1
+                data: [5, 8, 15, 3, 6],
+                borderWidth: 1,
             }]
         },
         options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Custom Chart Title',
-                    padding: {
-                        top: 10,
-                        bottom: 30
-                    }
-                }
-            },
             scales: {
                 y: {
                     beginAtZero: true
@@ -134,7 +152,6 @@ function download() {
     imageLink.href = canvas.toDataURL('image/png', 1);
     imageLink.download = "canvas.png";
     imageLink.click();
-
 }
 
 document.querySelector("#close").addEventListener("mousedown", e => {
@@ -165,6 +182,15 @@ addEventListener("mousemove", e => {
         popUp.style.top = `${y}px`;
     }
 });
+
+const el = document.querySelector(".pop-up");
+el.addEventListener("mouseover", (e) => {
+    const popUp = document.querySelector(".pop-up");
+    const pos = popUp.getBoundingClientRect();
+    let y = clamp(pos.y + e.movementY + pos.height / 2, pos.height / 2, window.innerHeight - pos.height / 2);
+    popUp.style.top = `${y}px`;
+});
+
 
 addEventListener("mouseup", _ => {
     move = false;
