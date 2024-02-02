@@ -13,7 +13,6 @@ a {
     font-size: 1.2rem;
     color: bisque;
     text-decoration: none;
-
 }
 
 html {
@@ -21,10 +20,45 @@ html {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bolder;
     color: bisque;
+    scroll-behavior: smooth;
 }
 
 body {
     background-color: #121212;
+    overflow-x: hidden;
+}
+
+header img {
+    position: absolute;
+    width: 300px;
+    filter: opacity(0.5);
+}
+
+header img:nth-child(1) {
+    top: 60%;
+    left: -10%;
+    filter: drop-shadow(0 0 500px silver) opacity(0.2);
+}
+
+header img:nth-child(2) {
+    scale: 1.2;
+    top: 20%;
+    left: 70%;
+    filter: drop-shadow(0 0 200px crimson) opacity(0.1);
+    transform: rotateZ(10deg);
+}
+
+header img:nth-child(3) {
+    top: 15%;
+    left: 13%;
+    filter: blur(4px);
+}
+
+header img:nth-child(4) {
+    top: 70%;
+    left: 80%;
+    filter: drop-shadow(0 0 500px gold) opacity(0.1);
+    scale: 1.5;
 }
 
 nav {
@@ -32,7 +66,7 @@ nav {
     justify-content: space-around;
     padding-inline: 2rem;
     backdrop-filter: blur(20px);
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 100svw;
     font-size: 1.5rem;
@@ -45,7 +79,7 @@ nav button {
     min-height: max-content;
     display: grid;
     place-items: center;
-    color: bisque;
+    color: rgb(255, 237, 215);
     background-color: transparent;
     border: 2px solid;
     border-radius: 1000px;
@@ -94,7 +128,7 @@ h1 {
     border-radius: 50%;
     box-shadow: 0 4px 0 -2px bisque;
     user-select: none;
-    background-image: url("downArrow.png");
+    background-image: url("./assets/downArrow.png");
     animation: up-down 2s infinite steps(1);
 }
 
@@ -129,7 +163,7 @@ section {
     background-color: #232323;
 }
 
-.content{
+.content {
     width: 50%;
     padding-bottom: 8%;
 }
@@ -158,7 +192,7 @@ section {
     background-clip: text;
 }
 
-.image-container{
+.image-container {
     width: 500px;
     display: flex;
     flex-direction: column;
@@ -172,89 +206,78 @@ section {
 
 .image-container img:nth-child(2n) {
     margin-left: auto;
-    transform: rotateZ(30deg);
 }
+
 .image-container img:nth-child(2n-1) {
     margin-right: auto;
-    transform: rotateZ(-30deg);
 }
 
-.tools{
+#tools {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 180px;
-    gap: 10rem;
+    justify-content: center;
+    padding-inline: 2rem;
+    gap: 2rem;
 }
 
-h2{
-    color: aqua;
-    padding: 20px;
-}
-
-.tool-card1{
-    background-color:coral;
+.tool-card {
+    display: grid;
+    padding: 2rem;
+    gap: 1rem;
+    background-image: linear-gradient(90deg, rgba(128, 0, 128, 0.5), rgba(255, 68, 0, 0.5));
     border-radius: 10px;
     border-color: aliceblue;
+    margin: 1rem;
+    width: 500PX;
+    height: 75svh;
+    overflow: clip;
 }
 
-.tool-card2{
-    background-color:coral;
-    border-radius: 10px;
-    border-color: aliceblue;
+.tool-card .image-container {
+    width: 100%;
+    height: 250px;
+    background-image: url("./assets/jj-removebg-preview.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-bottom: 2px solid crimson;
 }
 
-.tool-card1 p {
-    font-size: 20px;
-    padding: 20px;
+.tool-card:nth-child(2) .image-container {
+    background-image: url("./assets/midpoint5-1-1614310984-removebg-preview (1).png");
 }
 
-.btn{
-    width: 100px;
-    height: 40px;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: #fff;
-    font-size: 20px;
-    border-inline: border-box;
-    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
-    background-size: 100%;
-    border-radius: 1000px;
-    position: relative;
-    margin-left: 70px;
-    margin-top: 20px;
-    z-index: 1;
+.tool-card h2 {
+    font-size: 2rem;
+    color: gold;
 }
 
-.btn:hover{
-    animation: animate 8s linear infinite;
+.tool-card p {
+    font-size: 1rem;
+}
 
+.tool-card button {
+    background-color: transparent;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: bisque;
+    border: 0;
+    border-block: 2px solid crimson;
+}
+.tool-card button:hover:not(:active) {
+    background-color: crimson;
+    transition: 0.215s ease-in-out;
+    color: black;
 }
 
 @keyframes animate {
-    0%{
-        background-position: 0%;
+    0% {
+        background-position: 0% 0;
     }
-    100%{
-        background-position: 400%;
+
+    100% {
+        background-position: 100% 0;
     }
-}
-
-.btn::before{
-    content: '';
-    position: absolute;
-    inset: -5px;
-    z-index: -1;
-    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
-    background-size: 100%;
-    border-radius: 20px;
-    filter: blur(20px);
-
-}
-
-.tool-card2 p {
-    font-size: 20px;
-    padding: 20px;
 }
 
 .cta-btn {
@@ -279,6 +302,7 @@ h2{
     font-family: 'Courier New', Courier, monospace;
     font-weight: bolder;
 }
+
 .bg {
     width: 160%;
     scale: 0;
@@ -289,11 +313,13 @@ h2{
     position: absolute;
     pointer-events: none;
     transition: scale .2s ease-in-out;
-} 
+}
+
 .cta-btn:hover .bg {
     scale: 1;
     transition: scale .3s ease-in;
 }
+
 @keyframes up-down {
 
     0%,
@@ -304,4 +330,19 @@ h2{
     50% {
         background-position: 50% 70%;
     }
+}
+
+.cursor {
+    width: 3rem;
+    height: 3rem;
+    background-color: crimson;
+    mix-blend-mode: difference;
+    position: absolute;
+    left: -100px;
+    top: -100px;
+    z-index: 10;
+    pointer-events: none;
+    scale: 1;
+    transition: scale 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+    border-radius: 1000px;
 }

@@ -34,3 +34,50 @@ util.drawLine(bdx, -offset.x, from + i * UNITSIZE * group, -offset.x + this.canv
                 <label for="boardY">Y : </label> <input type="number" name="boardY" id="boardY" step="10"><br>
          */
 
+firebase.auth().onAuthStateChanged((user) => {
+       if (user) {
+              location.href = "../pages/choice.html";
+       } else {
+              console.log("user not found");
+       }
+});
+<script type="module">
+       import {initializeApp} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+       import {
+              getAuth,
+              onAuthStateChanged,
+              signOut
+       } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+       const firebaseConfig = {
+              apiKey: "AIzaSyDx0QqL8rsi7-Gt96bdBGTO4srsE8yk4t0",
+       authDomain: "visualizer-41044.firebaseapp.com",
+       projectId: "visualizer-41044",
+       storageBucket: "visualizer-41044.appspot.com",
+       messagingSenderId: "116770989067",
+       appId: "1:116770989067:web:71fa2f239b8ad412df930e",
+       measurementId: "G-Q609N46E6M"
+        };
+
+       const app = initializeApp(firebaseConfig);
+       const auth = getAuth();
+        onAuthStateChanged(auth, user => {
+            if (user) {
+              let userName = user.displayName;
+       let userId = user.uid;
+       let userEmail = user.email;
+       console.log(userEmail + "<br>");
+              console.log(userId + "<br>");
+                     console.log(userName + "<br>");
+            } else {
+                                   location.href = "../register/";
+            }
+        })
+                            const signOutBtn = document.querySelector('#sign-out')
+        signOutBtn.addEventListener('click', () => {
+            const response = confirm("are you sure");
+                            if (response) {
+                                   signOut(auth).catch(error => console.log(error.message));
+            }
+        });
+                     </script>

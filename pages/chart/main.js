@@ -13,16 +13,16 @@ let dataList = [
         value: 19,
     }, {
         label: 'Yellow',
-        value: 3,
+        value: 10,
     }, {
         label: 'Green',
-        value: 5,
+        value: 8,
     }, {
         label: 'Purple',  
-        value: 2,
-    }, {
-        lable: 'Orange',
         value: 7,
+    }, {
+        label: 'Orange',
+        value: 9,
     }
 ];
 
@@ -112,20 +112,17 @@ function clearAllData() {
 }
 
 function init() {
-    // createChart({
-    //     // colors: ["red", "blue", "yellow", "green", "purple", "orange"]
-    // });
     var xValues = dataList.map(data => data.label);
     var yValues = dataList.map(data => parseInt(data.value));
     chart = new Chart(canvas, {
-        type: "bar",
+        type: "radar",
         data: {
             labels: xValues,
             datasets: [{
                 data: yValues,
                 borderWidth: 1,
             }, {
-                data: [5, 8, 15, 3, 6],
+                data: [5, 8, 15, 3, 6, 1],
                 borderWidth: 1,
             }]
         },

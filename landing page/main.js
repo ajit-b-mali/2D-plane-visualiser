@@ -10,7 +10,6 @@ const bg = document.querySelector(".bg");
 // });
 
 a.addEventListener('mousemove', e => {
-    const offset = a.getBoundingClientRect();
     bg.style.left = `${e.offsetX - bg.clientWidth / 2}px`;
     bg.style.top = `${e.offsetY - bg.clientHeight / 2}px`;
 });

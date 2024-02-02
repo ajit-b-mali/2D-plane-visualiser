@@ -61,8 +61,8 @@ export function handleGoogleSignIn() {
 
 onAuthStateChanged(auth, user => {
     if (user) {
-        location.href = "../profile/";
-    } else {
         console.log("user not found");
+    } else {
+        location.href = "../../landing page";
     }
 })
