@@ -244,10 +244,24 @@ footer li:hover {
     color: white;
 }
 
+#file-input-pop-up {
+    color: bisque;
+    display: none;
+    border-block: 2px solid bisque;
+}
+#file-input-pop-up button {
+    display: inline-block;
+    width: max-content;
+    margin-left: auto;
+    margin-right: 1rem;
+}
 
-
-
-
+#file-input-pop-up.display-visible {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+}
 
 
 

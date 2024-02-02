@@ -4,7 +4,7 @@ const itemGroupEl = document.getElementById('item-table');
 let isAdding = false;
 let chart;
 
-const dataList = [];
+let dataList = [];
 
 function addItemElToList({ label, value }, index) {
     const dataContainer = document.createElement("div");
@@ -69,8 +69,9 @@ function createChart() {
         data: {
             labels: xValues,
             datasets: [{
-                backgroundColor: barColors,
-                data: yValues
+                // backgroundColor: barColors,
+                data: yValues,
+                borderWidth: 2,
             }]
         },
         options: {
@@ -87,19 +88,15 @@ function createChart() {
 
 function init() {
     chart = new Chart(canvas, {
-        type: 'radar',
+        type: 'bar',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
-                label: '# of Votes',
+                label: 'something',
                 data: [12, 19, 3, 5, 2, 3],
                 borderWidth: 1
             }, {
-                label: '# of Votes',
-                data: [3, 2, 5, 3, 19, 12],
-                borderWidth: 1
-            }, {
-                label: '# of Votes',
+                label: 'another something',
                 data: [3, 2, 5, 3, 19, 12],
                 borderWidth: 1
             }]
@@ -172,3 +169,31 @@ addEventListener("mousemove", e => {
 addEventListener("mouseup", _ => {
     move = false;
 });
+
+function dataJsonToObject(jsonData) {
+    dataList = jsonData.map(data => {
+        return {
+            label: data[0],
+            value: data[1]
+        }
+    });
+    itemListElUpdate();
+}
+
+function getDataFromUser() {
+    const input = document.getElementById("excelFileInput");
+    const file = input.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            const data = new Uint8Array(reader.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+            // console.log(JSON.stringify(jsonData, null, 2));
+            dataJsonToObject(jsonData);
+        };
+        reader.readAsArrayBuffer(file);
+    }
+}
