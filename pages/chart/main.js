@@ -1,3 +1,4 @@
+const canvas = document.getElementById("canvas");
 const itemGroupEl = document.getElementById('item-table');
 
 let isAdding = false;
@@ -8,12 +9,12 @@ const dataList = [];
 function addItemElToList({ label, value }, index) {
     const dataContainer = document.createElement("div");
     dataContainer.innerHTML = `
-    <li>${index}</li>
-    <li>${label}</li>
-    <li>${value}</li>
-    <li>
-    <button class="check-btn" onclick="removeItem(${index - 1})">❌</button>
-    </li>
+        <li>${index}</li>
+        <li>${label}</li>
+        <li>${value}</li>
+        <li>
+        <button class="check-btn" onclick="removeItem(${index - 1})">❌</button>
+        </li>
     `;
     itemGroupEl.appendChild(dataContainer);
 }
@@ -21,14 +22,13 @@ function addItemElToList({ label, value }, index) {
 function addInputFieldToList(index) {
     isAdding = true;
     const dataContainer = document.createElement("div");
-    dataContainer.style.backgroundColor = "#dfdfdf";
     dataContainer.innerHTML = `
-    <li>${index}</li>
-    <li><input type="text" id="label" placeholder="label"/></li>
-    <li><input type="number" id="value" placeholder="value"/></li>
-    <li>
-    <button class="check-btn" onclick="updateDataList()">✔</button>
-    </li>
+        <li>${index}</li>
+        <li><input type="text" id="label" placeholder="label"/></li>
+        <li><input type="number" id="value" placeholder="value"/></li>
+        <li>
+        <button class="check-btn" onclick="updateDataList()">✔</button>
+        </li>
     `;
     itemGroupEl.appendChild(dataContainer);
 }
@@ -47,7 +47,7 @@ function updateDataList() {
 
 function itemListElUpdate() {
     itemGroupEl.innerHTML = '';
-    dataList.forEach((data, index)=> {
+    dataList.forEach((data, index) => {
         addItemElToList(data, index + 1);
     })
 }
@@ -62,8 +62,7 @@ function createChart() {
     var xValues = dataList.map(data => data.label);
     var yValues = dataList.map(data => parseInt(data.value));
     var barColors = dataList.map(_ => `hsl(${Math.random() * 360}, 100%, 50%)`);
-    
-    const canvas = document.getElementById("canvas");
+
     chart?.destroy();
     chart = new Chart(canvas, {
         type: "bar",
@@ -87,15 +86,50 @@ function createChart() {
 }
 
 function init() {
+    chart = new Chart(canvas, {
+        type: 'radar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }, {
+                label: '# of Votes',
+                data: [3, 2, 5, 3, 19, 12],
+                borderWidth: 1
+            }, {
+                label: '# of Votes',
+                data: [3, 2, 5, 3, 19, 12],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Custom Chart Title',
+                    padding: {
+                        top: 10,
+                        bottom: 30
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
     itemListElUpdate();
 }
 
 document.addEventListener("DOMContentLoaded", init);
 
-document.querySelector(".btn").addEventListener("click", (event) => {
-    if (isAdding) return;
-    addInputFieldToList(dataList.length + 1);
-});
+function showPopUp() {
+    document.querySelector(".pop-up").style.display = "block";
+}
 
 function download() {
     const imageLink = document.createElement('a');

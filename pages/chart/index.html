@@ -39,7 +39,7 @@
                     <option value="bar">Bar Chart</option>
                     <option value="line">Line Chart</option>
                 </select>
-                <button class="btn">update item</button>
+                <button class="btn" onclick="showPopUp()">update item</button>
                 <button class="btn" onclick="createChart()">create chart</button>
                 <button class="btn" onclick="download()">download</button>
             </aside>
@@ -47,7 +47,8 @@
                 <div class="pop-up-options">
                     <button id="upload" class="opt-btn">📂</button>
                     <button id="apply" class="opt-btn">💾</button>
-                    <button id="add" class="opt-btn" onclick="addInputFieldToList(dataList.length + 1)">➕</button>
+                    <button id="add" class="opt-btn"
+                        onclick="(() => {if(!isAdding) addInputFieldToList(dataList.length + 1)})()">➕</button>
                     <button id="close" class="opt-btn">➖</button>
                 </div>
                 <div id="item-table"></div>
@@ -59,12 +60,14 @@
                 <li>rohit</li>
                 <li>bhaskar</li>
                 <li>harsh</li>
-                <li>prachi</li>
             </ul>
         </footer>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-    </script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+
     <script src="main.js"></script>
 </body>
 

@@ -126,6 +126,7 @@ canvas {
     transform: translate(-50%, -50%);
     border: 2px solid bisque;
     width: 500px;
+    display: none;
     backdrop-filter: blur(30px);
 }
 
@@ -136,6 +137,7 @@ canvas {
     padding: 0.5rem 1rem;
     background-color: rgba(10, 10, 10, 0.4);
 }
+
 #item-table {
     max-height: 80vh;
     overflow: auto;
@@ -150,6 +152,7 @@ canvas {
     font-weight: bolder;
     color: bisque;
 }
+
 #item-table div input {
     width: 100%;
     padding-block: 0.25rem;
@@ -157,7 +160,7 @@ canvas {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bolder;
     text-align: center;
-}    
+}
 
 @keyframes pop {
     0% {
@@ -213,7 +216,7 @@ li:nth-child(4) {
     border-radius: 0.5rem;
 }
 
-.check-btn:hover:not(:active){
+.check-btn:hover:not(:active) {
     background-color: #dfdfdf;
 }
 
