@@ -182,24 +182,79 @@ section {
 .tools{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 180px;
     gap: 10rem;
 }
 
 h2{
     color: aqua;
+    padding: 20px;
 }
 
 .tool-card1{
     background-color:coral;
-    
+    border-radius: 10px;
+    border-color: aliceblue;
+}
+
+.tool-card2{
+    background-color:coral;
+    border-radius: 10px;
+    border-color: aliceblue;
 }
 
 .tool-card1 p {
     font-size: 20px;
+    padding: 20px;
 }
+
+.btn{
+    width: 100px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    border-inline: border-box;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 100%;
+    border-radius: 1000px;
+    position: relative;
+    margin-left: 70px;
+    margin-top: 20px;
+    z-index: 1;
+}
+
+.btn:hover{
+    animation: animate 8s linear infinite;
+
+}
+
+@keyframes animate {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+.btn::before{
+    content: '';
+    position: absolute;
+    inset: -5px;
+    z-index: -1;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 100%;
+    border-radius: 20px;
+    filter: blur(20px);
+
+}
+
 .tool-card2 p {
     font-size: 20px;
+    padding: 20px;
 }
 
 .cta-btn {
