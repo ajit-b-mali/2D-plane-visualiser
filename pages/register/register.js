@@ -5,7 +5,8 @@ import {
     signInWithEmailAndPassword,
     onAuthStateChanged,
     GoogleAuthProvider,
-    signInWithPopup
+    signInWithPopup,
+    signOut
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -39,7 +40,7 @@ export function handleSignIn(email, password) {
             alert("successfull")
         })
         .catch(error => {
-            console.log(error.code, error.message);
+            alert(error.message);
         })
     console.log("Sign In");
 }
@@ -48,7 +49,7 @@ export function handleSignOut() {
     signOut(auth).then(_ => {
         alert("successful");
     }).catch(error => {
-        console.log(error.code, error.message);
+        alert(error.message);
     })
 }
 
@@ -61,8 +62,17 @@ export function handleGoogleSignIn() {
 
 onAuthStateChanged(auth, user => {
     if (user) {
-        console.log("user not found");
+        // location.href = "../profile";
+        alert(user.displayName, user.email);
     } else {
-        location.href = "../../landing page";
+        alert("user not found");
     }
 })
+
+const signOutBtn = document.querySelector('#sign-out')
+signOutBtn.addEventListener('click', () => {
+    const response = confirm("are you sure");
+    if (response) {
+        signOut(auth).catch(error => console.log(error.message));
+    }
+});

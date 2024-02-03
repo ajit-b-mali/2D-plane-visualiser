@@ -169,8 +169,8 @@ canvas.addEventListener('mousedown', e => {
 
     // primary button
     if (e.button == 0) {
-        x = e.offsetX - offset.x;
-        y = e.offsetY - offset.y;
+        let x = e.offsetX - offset.x;
+        let y = e.offsetY - offset.y;
         [x, y] = Util.snapXY(x, y, unit.size, SNAP);
         switch (drawManager) {
             case "select":
