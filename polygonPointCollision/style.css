@@ -1,0 +1,19 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#canvas {
+    display: block;
+    width: 100svw;
+    height: 100svh;
+
+    background-color: gainsboro;
+}
+
+#poly {
+    position: absolute;
+    top: 0;
+}
+
