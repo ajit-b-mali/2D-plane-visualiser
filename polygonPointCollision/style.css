@@ -17,3 +17,6 @@
     top: 0;
 }
 
+#poly.active {
+    background-color: #898989;
+}

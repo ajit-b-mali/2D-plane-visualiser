@@ -8,7 +8,8 @@ const polyBtn = document.getElementById("poly")
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
 
-let drawPoly = false;
+let canAddPolyToList = false;
+let isPolyAddedToList = false;
 
 class Polygon {
     constructor(canvas, vertices) {
@@ -26,11 +27,11 @@ class Polygon {
         for (const vertex of this.vertices) {
             this.ctx.lineTo(vertex.x, vertex.y);
         }
-        this.ctx.stroke();
         this.ctx.closePath();
         this.ctx.fill();
-        
+        this.ctx.stroke();
         for (const vertex of this.vertices) {
+            console.log(vertex);
             vertex.draw();
         }
         
@@ -39,6 +40,11 @@ class Polygon {
     addVertix(x, y) {
         this.vertices.push(new Point(this.canvas, x, y))
     }
+
+    checkCollision(x, y) {
+        this.selected = polyPoint(this.vertices, x, y);
+    }
+
 }
 
 class Point {
@@ -88,16 +94,16 @@ function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // update
-
-    for (const poly of polies) {
-        let collision = polyPoint(poly.vertices, point.x, point.y);
-        poly.selected = collision;
-    }
+    
+    // collision
+    polies.forEach(poly => {
+        poly.checkCollision(point.x, point.y);
+    })
+    
     // draw
-    for (const poly of polies) {
+    polies.slice().reverse().forEach(poly => {
         poly.draw();
-    }
-
+    });
     point.draw();
 
     // repeat
@@ -105,27 +111,39 @@ function loop() {
 }
 requestAnimationFrame(loop);
 
-addEventListener("mousemove", e => {
-    point.setPos(e.pageX, e.pageY);
+canvas.addEventListener("mousemove", e => {
+    point.setPos(e.offsetX, e.offsetY);
+    if (!canAddPolyToList && isPolyAddedToList) {
+        polies.at(-1).vertices.at(-1).setPos(e.offsetX, e.offsetY);
+    }
+});
+
+canvas.addEventListener("mouseleave", e => {
+    point.setPos(0, 0);
 });
 
 canvas.addEventListener("click", e => {
-    if (drawPoly)
-    polies?.at(-1).addVertix(e.offsetX, e.offsetY);
+    if (canAddPolyToList) {
+        polies.push(new Polygon(canvas, [new Point(canvas, e.offsetX, e.offsetY)]));
+        canAddPolyToList = false;
+        isPolyAddedToList = true;
+    }
+    if (isPolyAddedToList) {
+        polies?.at(-1).addVertix(e.offsetX, e.offsetY);
+    }
 });
 
+window.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+})
 canvas.addEventListener("mousedown", (e) => {
     if (e.button == 2) {
-        drawPoly = false;
+        polyBtn.classList.remove("active");
+        canAddPolyToList = false;
     }
-})
-canvas.addEventListener("contextmenu", (e) => {
-    // e.preventDefault();
 })
 
 polyBtn.addEventListener("click", () => {
-    if (!drawPoly) {
-        drawPoly = true;
-    }
-    polies.push(new Polygon(canvas, []));
+    canAddPolyToList = true;
+    polyBtn.classList.add("active");
 })
