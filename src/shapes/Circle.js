@@ -7,7 +7,7 @@ export default class Circle {
         this.r = 1;
         this.color = Math.random() * 360;
         this.selected = false;
-        this.name = "circle";
+        this.type = "circle";
     }
 
     update(dt, unitsize) {

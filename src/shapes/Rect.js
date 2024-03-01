@@ -8,7 +8,7 @@ export default class Rect {
         this.b = new Point(ctx, x + 2, y);
         this.c = new Point(ctx, x + 2, y - 1);
         this.d = new Point(ctx, x, y - 1);
-        this.name = "rect";
+        this.type = "rect";
     }
 
     update(dt, unitsize) {

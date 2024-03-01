@@ -141,7 +141,10 @@ function pointCircle(px, py, cx, cy, cr) {
 }
 
 function pointRect(px, py, rx, ry, rw, rh) {
-    return px < rx + rw && px > rx && py > ry && py < ry + rh;
+    if ((px > rx && px < rx + rw) && (py > ry && py < ry + rh)) {
+        return true;
+    }
+    return false;
 }
 
 function pointPoint() {
@@ -178,15 +181,16 @@ canvas.addEventListener('mousedown', e => {
                         shape.selected = false;
                 }
                 for (const shape of shapes) {
-                    if (pointCircle(x, y, shape.a.x, shape.a.y, shape.r)) {
+                    console.log(shape);
+                    if (shape.type == "circle" && pointCircle(x, y, shape.a.x, shape.a.y, shape.r)) {
                         shape.selected = true;
                         addCircleHtml(shape);
                         break;
                     }
-                    if (pointRect(x, y, shape.a.x, shape.a.y, shape.w, shape.h)) {
+                    if (shape.type == "square" && pointRect(x, y, shape.a.x, shape.a.y, shape.w, shape.h)) {
                         shape.selected = true;
-                        console.log("askdjflaksjdf");
                         addRectangleHtml(shape);
+                        console.log("clicked square");
                         break;
                     }
                 }
@@ -240,14 +244,9 @@ canvas.addEventListener('mousemove', e => {
     let y = e.offsetY - offset.y;
     [x, y] = Util.snapXY(x, y, unit.size, SNAP);
     cursor.setPos(x, y);
-    if (isDrawing && (shapes.at(-1).a.x != x || shapes.at(-1).a.y != y)) {
+    if (isDrawing && (shapes.at(-1).v[0].x != x || shapes.at(-1).v[0].y != y)) {
         shapes.at(-1).updateSize(x, y);
-    }    
-    // for (const shape of shapes) {
-    //     if (shape.selected && drawManager != "select" && clicked && drawManager != "point" && (tempShape.a.x != x || tempShape.a.y != y)) {
-    //         shape.updateSize(x, y);
-    //     }
-    // }
+    }
 });
 
 window.addEventListener('mouseup', e => {
