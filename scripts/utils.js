@@ -1,8 +1,4 @@
-function redirectTo(page, prefix = "/pages/") {
-  const pathName = window.location.pathname;
-  if (!pathName.startsWith("/pages")) {
-    prefix = pathName.replace(page + ".html", "");
-  }
+function redirectTo(page, prefix = "/2D-plane-visualiser/pages/") {
   window.location.assign(prefix + page + ".html");
 }
 
