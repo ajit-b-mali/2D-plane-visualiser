@@ -1,5 +1,5 @@
-function redirectTo(page, prefix = "/2D-plane-visualiser/pages/") {
-  window.location.assign(prefix + page + ".html");
+function redirectTo(page) {
+  window.location.assign("/2D-plane-visualiser/pages/" + page + ".html");
 }
 
 /******************************************
