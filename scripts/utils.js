@@ -1,4 +1,8 @@
 function redirectTo(page, prefix = "/pages/") {
+  const pathName = window.location.pathname;
+  if (!pathName.startsWith("/pages")) {
+    prefix = pathName.replace(page + ".html", "");
+  }
   window.location.assign(prefix + page + ".html");
 }
 
