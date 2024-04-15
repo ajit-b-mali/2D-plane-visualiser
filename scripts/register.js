@@ -41,7 +41,7 @@ signupBtn.addEventListener("click", () => {
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    redirectTo("chart");
+    redirectTo("geometry");
   }
 });
 
