@@ -1,0 +1,4 @@
+DONE
+  Geometry -> board
+  Geometry -> cursor
+  Geometry -> screen
