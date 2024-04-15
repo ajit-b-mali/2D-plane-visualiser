@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/styles/landing.css">
+  <title>visualizer</title>
+</head>
+
+<body>
+  <nav>
+    <div class="menus">
+      <button><a href="#tools">Explore</a></button>
+      <button><a href="#about">About Us</a></button>
+    </div>
+    <button><a href="./register.html">Log in</a></button>
+  </nav>
+  <header>
+    <img src="../assets/images/logo.png" alt="">
+    <img src="../assets/images/graph-963016_960_720.webp" alt="">
+    <img src="../assets/images/ncert-solutions-class-10-chapter-3-31-removebg-preview.png" alt="">
+    <img src="../assets/images/th-removebg-preview (1).png" alt="">
+    <h1>visualizer.io</h1>
+    <div class="down-arrow" onclick="location.href = '#hero'">
+    </div>
+  </header>
+  <main>
+    <div class="wrapper">
+      <section class="hero" id="hero">
+        <div class="content">
+          <p>Empower Your Data, Transform Your Insights, Visualize and Unleash the Potential of Your
+            Information.
+            Welcome to <span class="title">visualiser.io</span> wher data comes to life</p>
+        </div>
+        <div class="image-container">
+          <img src="../assets/images/1-removebg-preview.png" alt="Image 1">
+          <img src="../assets/images/uj-removebg-preview.png" alt="Image 2">
+          <img src="../assets/images/th-removebg-preview (1).png" alt="Image 1">
+          <img src="../assets/images/pngtree-bar-graph-element-png-image_1529962-removebg-preview.png" alt="Image 2">
+        </div>
+        <a href="./register.html" class="cta-btn">
+          <span class="bg"></span>
+          <span class="text">Get Started</span>
+        </a>
+      </section>
+      <section id="tools">
+        <div class="tool-card">
+          <div class="image-container"></div>
+          <h2>Explore Chart</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <button onclick="(_ => location.href = './chart.html')()">Start</button>
+        </div>
+        <div class="tool-card">
+          <div class="image-container"></div>
+          <h2>Explore Geometry</h2>
+          <p>Try our new geometry tool, now with the power of the graphing calculator built in.</p>
+          <button onclick="(_ => location.href = './geometry.html')()">Start</button>
+        </div>
+      </section>
+      <section id="about">
+        <div class="team">
+          <span>
+            <h2>H</h2>
+            <p>Harsh<br>
+              <a href="tel:+91 9876543210">7558287048<a /><br>
+                <a href="mailto:abc@xyz.pqr">harshalase2021@dkasc.ac.in</a>
+            </p>
+          </span>
+          <span class="U">
+            <h2>U</h2>
+            <p>Ajit<br>
+              <a href="tel:+91 9876543210">9156807784</a><br>
+              <a href="mailto:abc@xyz.pqr">ajitmali20221@dkasc.ac.in</a>
+            </p>
+          </span>
+          <span>
+            <h2>B</h2>
+            <p>Bhaskar <br>
+              <a href="tel:+91 9876543210">7841977244</a><br>
+              <a href="mailto:abc@xyz.pqr">bhaskarpatil2021@dkasc.ac.in</a>
+            </p>
+          </span>
+        </div>
+      </section>
+    </div>
+    <div class="cursor"></div>
+  </main>
+  <script type="module" src="../scripts/handleAuth.js"></script>
+  <script>
+    const a = document.querySelector(".cta-btn");
+    const bg = document.querySelector(".bg");
+
+    a.addEventListener('mousemove', e => {
+      bg.style.left = `${e.offsetX - bg.clientWidth / 2}px`;
+      bg.style.top = `${e.offsetY - bg.clientHeight / 2}px`;
+    });
+
+    const cursor = document.querySelector(".cursor");
+    window.addEventListener("mousemove", e => {
+      cursor.style.left = `${e.pageX - cursor.clientWidth / 2}px`;
+      cursor.style.top = `${e.pageY - cursor.clientHeight / 2}px`;
+    })
+  </script>
+</body>
+
+</html>

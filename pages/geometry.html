@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="#" type="image/x-icon">
+  <link rel="stylesheet" href="../assets/styles/geometry.css" />
+  <title>visualizer</title>
+</head>
+
+<body>
+  <div class="app">
+    <header>
+      <div class="appName">
+        <h1>Visualiser.io</h1>
+      </div>
+      <menu type="context" class="menu">
+        <ul>
+          <li><a href="./chart.html">Chart</a></li>
+          <li><a href="./help-geometry.html">Help</a></li>
+          <li><a href="./credit.html">Credit</a></li>
+        </ul>
+        <div class="link" id="sign-out">
+          <h4>Log out</h4>
+        </div>
+      </menu>
+    </header>
+    <main>
+      <menu type="toolbar" class="left-menu">
+        <ul class="tools">
+          <li data-tool="select"><img src="../assets/svgs/select.svg" alt="" /></li>
+          <li id="point">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">            
+              <circle cx="50" cy="50" r="10" style="fill: white;"/>
+            </svg>
+          </li>
+          <li id="line">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <line x1="20" x2="80" y1="50" y2="50" style="stroke-width: 8px; stroke: white"/>
+          </li>
+          <li id="rect">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="25" y="25" width="50" height="50" style="fill: transparent; stroke: white; stroke-width: 8px;"/>
+            </svg>
+          </li>
+          <li id="circle">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="30" style="fill: transparent; stroke: white; stroke-width: 8px;"/>
+            </svg>
+          </li>
+          <li id="polygon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="25,25 75,25, 70,60 50,80 30,60" style="fill: transparent; stroke: white; stroke-width: 8px;"/>
+            </svg>
+
+          </li>
+        </ul>
+        <ul class="shortcuts">
+
+        </ul>
+      </menu>
+      <div class="screen" id="screen">
+        <menu type="toolbar" class="options"></menu>
+        <canvas id="board"></canvas>
+        <canvas id="shape"></canvas>
+        <canvas id="temp"></canvas>
+        <canvas id="cursor"></canvas>
+      </div>
+      <aside class="properties">
+        <div class="boardProp">
+          <div class="snapSize">
+            <label for="snap">Select the snap </label>
+            <select name="snapSize" id="snap">
+              <option value="-1">none</option>
+              <option value="0.01">0.01</option>
+              <option value="0.10" selected>0.10</option>
+              <option value="0.50">0.50</option>
+              <option value="1.00">1.00</option>
+            </select>
+          </div>
+        </div>
+        <div class="shapeProp">
+          <div id="rectangleHtml">
+            <label for="x">x</label><input type="number" id="x">
+            <label for="y">y</label><input type="number" id="y">
+            <label for="w">w</label><input type="number" id="w">
+            <label for="h">h</label><input type="number" id="h">
+          </div>
+        </div>
+      </aside>
+    </main>
+    <footer>
+      <nav>
+        <ul>
+          <li><a href="./help-geometry.html">Help</a></li>
+          <li><a href="./credit.html">Credit</a></li>
+        </ul>
+      </nav>
+    </footer>
+  </div>
+  <script type="module" src="../scripts/geometry.js"></script>
+  <script type="module" src="../scripts/handleAuth.js"></script>
+</body>
+
+</html>

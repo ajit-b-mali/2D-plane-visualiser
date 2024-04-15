@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="#" type="image/x-icon">
+  <link rel="stylesheet" href="../assets/styles/auth.css">
+  <title>visualizer</title>
+</head>
+
+<body>
+  <header class="header">
+    <h1 class="header__title">visualizer.io</h1>
+  </header>
+  <main>
+    <div class="wrapper main-form" id="root">
+      <h2>Welcome Back!</h2>
+      <input type="email" id="email" placeholder="E-mail" autocomplete="off" />
+      <input type="password" id="password" placeholder="Password" />
+      <button id="signin-btn" class="submitBtn">Sign In</button>
+      <p>don't have account?
+        <a href="./register.html" class="link">CREATE ONE</a>
+      </p>
+    </div>
+    <div class="wrapper providers">
+      <button id="email-signin" class="logo" style="font-size: 1.5rem;">
+        💬
+        <span>Sign in without password</span>
+      </button>
+      <button class="logo" id="google-signin">
+        <img src="../assets/images/pngwing.com.png" width="30">
+        <span>sign in with google</span></button>
+      <button class="logo" id="github-signin">
+        <img src="../assets/images/github-mark-white.png" width="30">
+        <span>sign in with github</span>
+      </button>
+    </div>
+  </main>
+  <script type="module" src="../scripts/login.js"></script>
+</body>
+
+</html>
